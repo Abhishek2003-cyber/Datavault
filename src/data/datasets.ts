@@ -1,3 +1,3 @@
-import { DatasetMetadata } from "../types/dataset";
+import { Dataset } from "../types/dataset";
 
-export const DATASETS: DatasetMetadata[] = [];
+export const DATASETS: Dataset[] = [];
