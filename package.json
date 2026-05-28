@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@noble/curves": "^2.2.0",
-    "@piplabs/cdr-sdk": "file:../cdr-sdk/packages/sdk",
     "@rainbow-me/rainbowkit": "^2.2.11",
     "@story-protocol/core-sdk": "^1.4.4",
     "@supabase/supabase-js": "^2.106.2",
