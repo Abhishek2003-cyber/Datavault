@@ -9,18 +9,37 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@noble/curves": "^2.2.0",
+    "@piplabs/cdr-sdk": "file:../cdr-sdk/packages/sdk",
+    "@rainbow-me/rainbowkit": "^2.2.11",
+    "@story-protocol/core-sdk": "^1.4.4",
+    "@supabase/supabase-js": "^2.106.2",
+    "@tanstack/react-query": "^5.100.14",
+    "@walletconnect/ethereum-provider": "^2.23.9",
+    "clsx": "^2.1.1",
+    "framer-motion": "^12.40.0",
+    "lucide-react": "^1.16.0",
     "next": "16.2.6",
+    "nodemailer": "^8.0.9",
     "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react-dom": "19.2.4",
+    "recharts": "^3.8.1",
+    "tailwind-merge": "^3.6.0",
+    "viem": "^2.51.0",
+    "wagmi": "^2.19.5"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
+    "@types/nodemailer": "^8.0.0",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "dotenv": "^17.4.2",
     "eslint": "^9",
     "eslint-config-next": "16.2.6",
+    "solc": "^0.8.20",
     "tailwindcss": "^4",
+    "tsx": "^4.22.3",
     "typescript": "^5"
   }
 }
