@@ -14,6 +14,7 @@ async function main() {
     slot
   });
   
+  if (!implStorage) throw new Error("Could not read implementation storage");
   const implAddress = "0x" + implStorage.slice(26);
   console.log("Implementation Address:", implAddress);
   
