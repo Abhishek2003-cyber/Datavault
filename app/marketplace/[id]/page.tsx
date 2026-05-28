@@ -9,13 +9,13 @@ import { DecryptFlowModal } from "../../../src/components/ui/DecryptFlowModal";
 import { TimelineStep } from "../../../src/components/ui/TransactionTimeline";
 import { useDatasetDecrypt } from "../../../src/hooks/useDatasetDecrypt";
 import { EmailReceiptModal, ReceiptType } from "../../../src/components/modals/EmailReceiptModal";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, Variants } from "framer-motion";
 
-const staggerContainer = {
+const staggerContainer: Variants = {
   hidden: { opacity: 0 },
   show: { opacity: 1, transition: { staggerChildren: 0.1 } }
 };
-const fadeUp = {
+const fadeUp: Variants = {
   hidden: { opacity: 0, y: 20 },
   show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 300, damping: 24 } }
 };
