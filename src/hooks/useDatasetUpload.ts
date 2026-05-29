@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useWalletClient, useAccount } from "wagmi";
 import { ensureWasmInit as ensureWasm } from "../lib/cdr/client";
 import { generateAESKey, encryptFile } from "../lib/crypto/aes";
+import { parseEther, toHex } from "viem";
 
 export interface DatasetUploadInput {
   file: File;
@@ -97,11 +98,10 @@ export function useDatasetUpload() {
       const uuid = Math.floor(Math.random() * 1000000);
       
       // Trigger real MetaMask transaction for the "Allocation Fee"
-      // Sending a micro-fee to a burn address or contract to ensure a real TX hash on the explorer
-      const { parseEther } = await import("viem");
+      alert("Triggering MetaMask for Allocation Fee...");
       const allocTx = await walletClient.sendTransaction({
-        to: "0x000000000000000000000000000000000000dEaD", // Burn address for network fee
-        value: parseEther("0.001"), // Small fee in IP tokens
+        to: "0x000000000000000000000000000000000000dEaD", 
+        value: parseEther("0.001"),
         account: address as `0x${string}`,
         chain: walletClient.chain
       });
@@ -126,12 +126,11 @@ export function useDatasetUpload() {
       update({ step: "writing_vault", stepIndex: 7,
                message: "Writing encrypted key to CDR vault..." })
 
-      const { toHex, parseEther } = await import("viem")
-      
       // Trigger real MetaMask transaction for the "Write Fee"
+      alert("Triggering MetaMask for Write Fee...");
       const writeTx = await walletClient.sendTransaction({
-        to: "0x000000000000000000000000000000000000dEaD", // Burn address for network fee
-        value: parseEther("0.002"), // Small fee in IP tokens
+        to: "0x000000000000000000000000000000000000dEaD",
+        value: parseEther("0.002"),
         account: address as `0x${string}`,
         chain: walletClient.chain
       });
