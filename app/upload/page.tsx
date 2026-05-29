@@ -287,7 +287,7 @@ export default function UploadPage() {
               disabled={!file || isUploading}
               onClick={handleUpload}
             >
-              {isUploading ? "ENCRYPTING..." : "SECURE & UPLOAD DATASET"}
+              {isUploading ? "ENCRYPTING & TRANSACTING..." : "SECURE & UPLOAD DATASET (REAL TX)"}
             </button>
           </motion.div>
         </div>
