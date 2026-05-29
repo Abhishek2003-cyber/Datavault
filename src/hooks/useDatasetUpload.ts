@@ -70,7 +70,7 @@ export function useDatasetUpload() {
       
       const ipfsRes = await fetch("/api/upload-file", {
         method: "POST",
-        body: new Blob([encryptedBytes as any]),
+        body: new Blob([encryptedBytes.buffer as ArrayBuffer]),
       })
       if (!ipfsRes.ok) {
         const e = await ipfsRes.text()
