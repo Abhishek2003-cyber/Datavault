@@ -83,8 +83,12 @@ export default function UploadPage() {
   return (
     <div className="relative min-h-screen py-24 px-4 overflow-hidden">
       
-      {/* Immersive Space Background */}
-      <div className="fixed inset-0 pointer-events-none z-[-1] bg-[radial-gradient(ellipse_at_top,rgba(0,180,255,0.05)_0%,rgba(7,17,28,1)_100%)] bg-[#07111c]" />
+      {/* Classified Upload Terminal Background */}
+      <div className="fixed inset-0 pointer-events-none z-[-1] bg-bg">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(239,68,68,0.05)_0%,rgba(2,4,10,1)_100%)]" />
+        <div className="absolute top-[30%] left-[20%] w-[40vw] h-[40vw] rounded-full bg-accent-red/5 blur-[120px] mix-blend-screen" />
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:30px_30px] opacity-30" />
+      </div>
       
       <div className="max-w-[1200px] mx-auto relative z-10">
         
@@ -130,12 +134,12 @@ export default function UploadPage() {
 
             {/* Dataset Name */}
             <div className="group relative flex flex-col gap-2">
-              <label className="text-[11px] font-medium text-cyan-200/80 uppercase tracking-widest pl-1">Dataset Name</label>
+              <label className="text-[11px] font-medium text-text-secondary uppercase tracking-widest pl-1">Dataset Name</label>
               <input 
                 value={datasetName} 
                 onChange={e => setDatasetName(e.target.value)} 
                 type="text" 
-                className="w-full rounded-2xl border border-white/[0.08] bg-[#08131f] px-5 py-4 text-white outline-none transition-all duration-300 focus:border-cyan-400/40 focus:shadow-[0_0_30px_rgba(0,180,255,0.15)] placeholder:text-white/20" 
+                className="w-full glass-panel px-5 py-4 text-white outline-none transition-all duration-300 focus:border-accent-cyan focus:shadow-glow-cyan placeholder:text-white/20" 
                 placeholder="e.g. Healthcare MRI Dataset 2026" 
               />
             </div>
@@ -143,11 +147,11 @@ export default function UploadPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Category */}
               <div className="group relative flex flex-col gap-2">
-                <label className="text-[11px] font-medium text-cyan-200/80 uppercase tracking-widest pl-1">Category</label>
+                <label className="text-[11px] font-medium text-text-secondary uppercase tracking-widest pl-1">Category</label>
                 <select 
                   value={category} 
                   onChange={e => setCategory(e.target.value)} 
-                  className="w-full rounded-2xl border border-white/[0.08] bg-[#08131f] px-5 py-4 text-white outline-none transition-all duration-300 focus:border-cyan-400/40 focus:shadow-[0_0_30px_rgba(0,180,255,0.15)] appearance-none"
+                  className="w-full glass-panel px-5 py-4 text-white outline-none transition-all duration-300 focus:border-accent-cyan focus:shadow-glow-cyan appearance-none"
                 >
                   {CATEGORIES.map(cat => (
                     <option key={cat} value={cat}>{cat}</option>
@@ -161,21 +165,21 @@ export default function UploadPage() {
               {/* Price */}
               {uploadMode === "marketplace" ? (
                 <div className="group relative flex flex-col gap-2">
-                  <label className="text-[11px] font-medium text-cyan-200/80 uppercase tracking-widest pl-1">Price (IP)</label>
+                  <label className="text-[11px] font-medium text-text-secondary uppercase tracking-widest pl-1">Price (IP)</label>
                   <input 
                     value={price} 
                     onChange={e => setPrice(e.target.value)} 
                     type="number" 
-                    className="w-full rounded-2xl border border-white/[0.08] bg-[#08131f] px-5 py-4 text-white outline-none transition-all duration-300 focus:border-cyan-400/40 focus:shadow-[0_0_30px_rgba(0,180,255,0.15)] placeholder:text-white/20" 
+                    className="w-full glass-panel px-5 py-4 text-white outline-none transition-all duration-300 focus:border-accent-cyan focus:shadow-glow-cyan placeholder:text-white/20" 
                     placeholder="0.00" 
                   />
                 </div>
               ) : (
                 <div className="group relative flex flex-col gap-2">
-                  <label className="text-[11px] font-medium text-cyan-200/80 uppercase tracking-widest pl-1">Storage Fee (IP / Year)</label>
-                  <div className="w-full rounded-2xl border border-white/[0.08] bg-[#08131f] px-5 py-4 text-cyan-300 outline-none flex items-center justify-between">
+                  <label className="text-[11px] font-medium text-accent-red uppercase tracking-widest pl-1 drop-shadow-[0_0_5px_rgba(239,68,68,0.5)]">Storage Fee (IP / Year)</label>
+                  <div className="w-full glass-panel border-accent-red/30 px-5 py-4 text-accent-red outline-none flex items-center justify-between shadow-[0_0_20px_rgba(239,68,68,0.1)]">
                     <span className="font-bold text-lg">{file ? Math.max(1, Math.ceil(file.size / (1024 * 1024 * 1024))) : 1}</span>
-                    <span className="text-white/30 text-xs">Auto-calculated</span>
+                    <span className="text-accent-red/50 text-xs">Auto-calculated</span>
                   </div>
                 </div>
               )}
@@ -201,12 +205,12 @@ export default function UploadPage() {
 
             {/* Description */}
             <div className="group relative flex flex-col gap-2">
-              <label className="text-[11px] font-medium text-cyan-200/80 uppercase tracking-widest pl-1">Description</label>
+              <label className="text-[11px] font-medium text-text-secondary uppercase tracking-widest pl-1">Description</label>
               <textarea 
                 value={description} 
                 onChange={e => setDescription(e.target.value)} 
                 rows={4} 
-                className="w-full rounded-2xl border border-white/[0.08] bg-[#08131f] px-5 py-4 text-white outline-none transition-all duration-300 focus:border-cyan-400/40 focus:shadow-[0_0_30px_rgba(0,180,255,0.15)] resize-none placeholder:text-white/20" 
+                className="w-full glass-panel px-5 py-4 text-white outline-none transition-all duration-300 focus:border-accent-cyan focus:shadow-glow-cyan resize-none placeholder:text-white/20 custom-scrollbar" 
                 placeholder="Describe your dataset..." 
               />
             </div>
@@ -224,8 +228,8 @@ export default function UploadPage() {
               className={`
                 group relative flex h-[260px] flex-col items-center justify-center overflow-hidden rounded-[32px] border border-dashed transition-all duration-500
                 ${isDragActive 
-                  ? "border-cyan-300 shadow-[0_0_80px_rgba(0,180,255,0.2)] bg-[#07111c]" 
-                  : "border-cyan-400/20 bg-[#07111c]/70 hover:border-cyan-300/60 hover:shadow-[0_0_60px_rgba(0,180,255,0.15)]"}
+                  ? "border-accent-cyan shadow-glow-cyan bg-accent-cyan/5" 
+                  : "border-white/20 bg-black/40 hover:border-accent-cyan hover:shadow-glow-cyan"}
                 backdrop-blur-2xl cursor-pointer
               `}
               onDragOver={(e) => { e.preventDefault(); setIsDragActive(true); }}

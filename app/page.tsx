@@ -17,16 +17,37 @@ export default function Home() {
       
       {/* Layered depth and holographic atmosphere orbs */}
       <div className="absolute inset-0 flex items-center justify-center -z-10 pointer-events-none overflow-hidden">
+        {/* Validator Network Base Glow */}
         <motion.div 
-          className="absolute w-[60vw] h-[60vw] bg-accent-cyan/10 rounded-full blur-[120px] mix-blend-screen"
-          animate={{ x: [0, 50, -50, 0], y: [0, -50, 50, 0] }}
-          transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+          className="absolute w-[70vw] h-[70vw] bg-accent-cyan/10 rounded-full blur-[150px] mix-blend-screen"
+          animate={{ x: [0, 50, -50, 0], y: [0, -50, 50, 0], scale: [1, 1.1, 1] }}
+          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
         />
         <motion.div 
-          className="absolute w-[50vw] h-[50vw] bg-purple-500/10 rounded-full blur-[100px] mix-blend-screen"
-          animate={{ x: [0, -60, 60, 0], y: [0, 60, -60, 0] }}
-          transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
+          className="absolute w-[60vw] h-[60vw] bg-accent-violet/10 rounded-full blur-[130px] mix-blend-screen"
+          animate={{ x: [0, -60, 60, 0], y: [0, 60, -60, 0], scale: [1, 1.2, 1] }}
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
         />
+        {/* Floating Data Packets */}
+        {Array.from({ length: 6 }).map((_, i) => (
+          <motion.div
+            key={`packet-${i}`}
+            className="absolute w-2 h-2 bg-accent-cyan rounded-full shadow-glow-cyan"
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{ 
+              opacity: [0, 1, 1, 0],
+              scale: [0, 1.5, 1, 0],
+              x: Math.random() * 400 - 200,
+              y: Math.random() * 400 - 200
+            }}
+            transition={{
+              duration: 4 + Math.random() * 4,
+              repeat: Infinity,
+              delay: Math.random() * 5,
+              ease: "easeInOut"
+            }}
+          />
+        ))}
       </div>
 
       {/* Floating HUD Panels Removed as requested */}
@@ -70,15 +91,15 @@ export default function Home() {
 
         {/* Futuristic Button Group */}
         <motion.div 
-          className="flex flex-col sm:flex-row items-center gap-6 relative z-30"
+          className="flex flex-col sm:flex-row items-center gap-6 relative z-30 mt-4"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 1.2 }}
         >
           <Link href="/marketplace" className="relative group">
-            <div className="absolute inset-0 bg-accent-cyan rounded-xl blur-lg opacity-40 group-hover:opacity-80 transition-opacity duration-500" />
-            <button className="relative btn-primary w-64 h-16 text-xl tracking-widest uppercase rounded-xl flex items-center justify-center gap-3 overflow-hidden bg-black border border-accent-cyan/50 text-white hover:text-white hover:border-accent-cyan">
-              <div className="absolute inset-0 bg-gradient-to-r from-accent-cyan/0 via-accent-cyan/20 to-accent-cyan/0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out" />
+            <div className="absolute inset-0 bg-accent-cyan rounded-xl blur-xl opacity-30 group-hover:opacity-70 transition-opacity duration-500" />
+            <button className="relative w-64 h-16 text-xl tracking-widest uppercase rounded-xl flex items-center justify-center gap-3 overflow-hidden glass-panel text-white hover:border-accent-cyan hover:shadow-glow-cyan transition-all duration-300">
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-accent-cyan/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out" />
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-accent-cyan group-hover:scale-110 transition-transform">
                 <polygon points="5 3 19 12 5 21 5 3"></polygon>
               </svg>
@@ -87,7 +108,7 @@ export default function Home() {
           </Link>
 
           <Link href="/upload" className="relative group">
-            <button className="relative w-64 h-16 text-xl font-mono tracking-widest uppercase rounded-xl flex items-center justify-center gap-3 bg-black/40 backdrop-blur-lg border border-white/10 text-text-secondary hover:text-white hover:border-white/30 transition-all duration-300 shadow-[0_0_20px_rgba(255,255,255,0.05)_inset]">
+            <button className="relative w-64 h-16 text-xl font-mono tracking-widest uppercase rounded-xl flex items-center justify-center gap-3 glass-panel border border-white/10 text-text-secondary hover:text-white hover:border-white/30 transition-all duration-300">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:-translate-y-1 transition-transform">
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                 <polyline points="17 8 12 3 7 8"></polyline>

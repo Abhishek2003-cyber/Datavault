@@ -1,23 +1,24 @@
 @import "tailwindcss";
 
 @theme {
-  --color-bg: #000000;
-  --color-bg-surface: #050505;
-  --color-bg-elevated: #0a0a0a;
-  --color-bg-border: #1a1a1a;
-  --color-bg-border-2: #262626;
-  --color-text-primary: #ffffff;
-  --color-text-secondary: #888888;
-  --color-text-tertiary: #444444;
-  --color-text-mono: #00d4ff;
+  --color-bg: #02040a;
+  --color-bg-surface: #0a0e17;
+  --color-bg-elevated: #111827;
+  --color-bg-border: #1e293b;
+  --color-bg-border-2: #334155;
+  --color-text-primary: #f8fafc;
+  --color-text-secondary: #94a3b8;
+  --color-text-tertiary: #64748b;
+  --color-text-mono: #38bdf8;
   
-  --color-accent-cyan: #00d4ff;
-  --color-accent-cyan-dim: #007799;
-  --color-accent-cyan-glow: rgba(0, 212, 255, 0.4);
+  --color-accent-cyan: #00f0ff;
+  --color-accent-cyan-dim: #00b8cc;
+  --color-accent-cyan-glow: rgba(0, 240, 255, 0.4);
+  --color-accent-violet: #8b5cf6;
   
-  --color-accent-green: #00ff88;
-  --color-accent-amber: #ffaa00;
-  --color-accent-red: #ff3366;
+  --color-accent-green: #10b981;
+  --color-accent-amber: #f59e0b;
+  --color-accent-red: #ef4444;
   
   --font-sans: var(--font-dm-sans);
   --font-mono: var(--font-ibm-plex-mono);
@@ -47,17 +48,28 @@
 
 @layer components {
   .card {
-    background-color: rgba(10, 10, 10, 0.8);
-    backdrop-filter: blur(16px);
-    border: 1px solid var(--color-bg-border);
+    background-color: rgba(10, 14, 23, 0.6);
+    backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
   
   .glass-panel {
-    background: rgba(5, 5, 5, 0.6);
+    background: linear-gradient(145deg, rgba(16, 24, 39, 0.7) 0%, rgba(2, 4, 10, 0.8) 100%);
     backdrop-filter: blur(30px);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    box-shadow: inset 0 0 20px rgba(255,255,255,0.02);
+    -webkit-backdrop-filter: blur(30px);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.7), inset 0 1px 1px rgba(255, 255, 255, 0.05);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .glass-panel:hover {
+    border-color: rgba(0, 240, 255, 0.3);
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.7), 0 0 30px -5px rgba(0, 240, 255, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.1);
   }
   
   /* High-end liquid button */
@@ -83,10 +95,11 @@
   }
   
   .btn-primary:hover {
-    box-shadow: 0 0 40px rgba(0,212,255,0.3);
+    box-shadow: 0 0 40px rgba(0,240,255,0.4);
     color: #fff;
-    text-shadow: 0 0 10px rgba(255,255,255,0.5);
+    text-shadow: 0 0 10px rgba(255,255,255,0.8);
     transform: scale(1.02);
+    border-color: rgba(0, 240, 255, 1);
   }
   
   .btn-primary:hover::before {
@@ -96,7 +109,7 @@
   
   .btn-primary:active {
     transform: scale(0.95);
-    box-shadow: 0 0 10px rgba(0,212,255,0.5);
+    box-shadow: 0 0 15px rgba(0,240,255,0.6);
   }
   
   .btn-primary:disabled {

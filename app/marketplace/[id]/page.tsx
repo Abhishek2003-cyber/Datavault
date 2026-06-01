@@ -134,13 +134,13 @@ export default function DatasetDetailPage() {
             {dataset.cdr_vault_uuid != null && <span className="badge badge-cyan flex items-center gap-1"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg> Vault #{dataset.cdr_vault_uuid}</span>}
           </motion.div>
           
-          <motion.h1 variants={fadeUp} className="text-5xl lg:text-7xl font-bold leading-tight font-sans tracking-tight text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]">
+          <motion.h1 variants={fadeUp} className="text-5xl lg:text-7xl font-bold leading-tight font-sans tracking-tight text-white drop-shadow-[0_0_20px_rgba(255,255,255,0.2)]">
             {dataset.name}
           </motion.h1>
           
           <motion.div variants={fadeUp} className="flex items-center gap-4 text-sm text-text-secondary font-mono pb-8 border-b border-white/5">
             <div className="flex items-center gap-2">
-              <div className="w-6 h-6 rounded-full bg-gradient-to-br from-accent-cyan to-blue-600" />
+              <div className="w-6 h-6 rounded-full bg-gradient-to-br from-accent-cyan to-accent-violet shadow-glow-cyan" />
               <span className="text-white font-semibold">{formatAddress(dataset.owner_address)}</span>
             </div>
             <div className="w-1 h-1 rounded-full bg-white/20" />
@@ -153,14 +153,15 @@ export default function DatasetDetailPage() {
             <p>{dataset.description}</p>
           </motion.div>
           
-          <motion.div variants={fadeUp} className="encrypted-element">
+          <motion.div variants={fadeUp} className="encrypted-element relative">
+            <div className="absolute -inset-4 bg-accent-cyan/5 blur-xl -z-10 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity" />
             <h3 className="text-sm font-bold text-accent-cyan uppercase tracking-widest mb-4 font-mono flex items-center gap-2">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="7.5 4.21 12 6.81 16.5 4.21"></polyline><polyline points="7.5 19.79 9 18.92"></polyline><polyline points="16.5 19.79 15 18.92"></polyline><polyline points="12 12 12 22"></polyline></svg>
               Encrypted Sample
             </h3>
             <div className="glass-panel rounded-xl p-5 overflow-x-auto relative group">
               <div className="absolute inset-0 bg-gradient-to-r from-accent-cyan/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-              <pre className="font-mono text-xs text-text-mono whitespace-pre opacity-70 group-hover:opacity-100 transition-opacity relative z-10">
+              <pre className="font-mono text-xs text-text-mono whitespace-pre opacity-70 group-hover:opacity-100 transition-opacity relative z-10 drop-shadow-[0_0_5px_rgba(0,240,255,0.5)]">
                 {dataset.sample_preview}
               </pre>
             </div>
@@ -185,12 +186,12 @@ export default function DatasetDetailPage() {
         {/* Right Col: Floating 3D Purchase Card */}
         <motion.div variants={fadeUp} className="w-full lg:w-[400px] flex-shrink-0 relative z-20">
           <motion.div 
-            className="sticky top-28 glass-panel rounded-2xl p-8 overflow-hidden group"
-            whileHover={{ y: -5, boxShadow: "0 25px 50px -12px rgba(0, 212, 255, 0.25)" }}
+            className="sticky top-28 glass-panel rounded-2xl p-8 overflow-hidden group shadow-glow-cyan"
+            whileHover={{ y: -5, boxShadow: "0 0 80px -20px rgba(0, 240, 255, 0.4)" }}
             transition={{ type: "spring", stiffness: 400, damping: 30 }}
           >
             {/* Holographic animated edge */}
-            <div className="absolute inset-0 bg-gradient-to-br from-accent-cyan/20 via-transparent to-accent-green/20 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-br from-accent-cyan/30 via-transparent to-accent-violet/30 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
             
             <div className="relative z-10 text-center mb-8">
               {dataset.is_private_vault ? (

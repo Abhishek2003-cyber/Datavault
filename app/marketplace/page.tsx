@@ -32,20 +32,24 @@ export default function MarketplacePage() {
 
   return (
     <div className="relative min-h-screen pb-32">
-      {/* Immersive 3D Background */}
-      <div className="fixed top-0 left-0 w-full h-full pointer-events-none z-[-1]">
+      {/* Immersive Trading Floor Background */}
+      <div className="fixed inset-0 pointer-events-none z-[-1]">
+        <div className="absolute inset-0 bg-grid-pattern opacity-30" />
+        <div className="absolute top-[10%] right-[5%] w-[50vw] h-[50vw] max-w-[600px] max-h-[600px] bg-accent-cyan/10 rounded-full blur-[130px] mix-blend-screen" />
+        <div className="absolute bottom-[10%] left-[5%] w-[40vw] h-[40vw] max-w-[500px] max-h-[500px] bg-accent-violet/10 rounded-full blur-[100px] mix-blend-screen" />
+        
+        {/* Holographic Trading Grids */}
         <motion.div 
-          className="absolute inset-0 opacity-[0.02] bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCI+CjxwYXRoIGQ9Ik0wIDBoNDB2NDBIMHoiIGZpbGw9Im5vbmUiLz4KPHBhdGggZD0iTTAgMGg0MHY0MEgweiIgZmlsbD0ibm9uZSIvPgo8cGF0aCBkPSJNMCAwbDEwIDEwSDMwTDIwIDIwTDEwIDEweiIgZmlsbD0iIzAwZDRmZiIgZmlsbC1vcGFjaXR5PSIwLjUiLz4KPC9zdmc+')] bg-repeat"
+          className="absolute inset-0 opacity-[0.05] bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCI+PHBhdGggZD0iTTAgMGg0MHY0MEgweiIgZmlsbD0ibm9uZSIvPjxwYXRoIGQ9Ik0wIDBsMTAgMTBIMzBMMjAgMjBMMTAgMTB6IiBmaWxsPSIjMDBmMGZmIiBmaWxsLW9wYWNpdHk9IjAuNSIvPjwvc3ZnPg==')] bg-repeat"
           animate={{ backgroundPosition: ["0px 0px", "40px 40px"] }}
-          transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+          transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
         />
-        <div className="absolute top-[20%] left-[10%] w-[60vw] h-[60vw] max-w-[800px] max-h-[800px] bg-accent-cyan/10 rounded-full blur-[120px] mix-blend-screen" />
       </div>
       
       <div className="relative z-10 pt-20 px-4 md:px-8 max-w-[1400px] mx-auto">
         {/* Floating Command Bar */}
         <motion.div 
-          className="glass-panel sticky top-24 z-40 mx-auto max-w-4xl rounded-2xl p-2 mb-16 flex flex-col md:flex-row items-center gap-4 border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
+          className="glass-panel sticky top-24 z-40 mx-auto max-w-4xl rounded-2xl p-2 mb-16 flex flex-col md:flex-row items-center gap-4"
           initial={{ y: -50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ type: "spring", stiffness: 300, damping: 25 }}
