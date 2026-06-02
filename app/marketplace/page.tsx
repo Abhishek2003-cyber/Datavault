@@ -28,38 +28,34 @@ export default function MarketplacePage() {
 
   const filteredDatasets = filter === "ALL" 
     ? datasets 
-    : datasets.filter(d => d.category.toUpperCase().includes(filter));
+    : datasets.filter(d => d.category.toUpperCase().includes(filter) || d.tags.some(t => t.toUpperCase().includes(filter)));
 
   return (
     <div className="relative min-h-screen pb-32">
-      <div className="relative z-10 pt-20 px-4 md:px-8 max-w-[1400px] mx-auto">
-        {/* Command Bar */}
+      <div className="relative z-10 pt-20 px-4 md:px-8 max-w-[1200px] mx-auto">
+        {/* Command Bar / Filter Section */}
         <motion.div 
-          className="bg-ivory-50 border border-ivory-300 sticky top-24 z-40 mx-auto max-w-4xl p-2 mb-16 flex flex-col md:flex-row items-center gap-4"
-          initial={{ y: -50, opacity: 0 }}
+          className="flex flex-col md:flex-row items-center justify-between mb-8 pt-10"
+          initial={{ y: -20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ type: "spring", stiffness: 300, damping: 25 }}
         >
-          <div className="relative flex-1 w-full">
-            <svg className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-ink-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-            </svg>
-            <input 
-              type="text" 
-              placeholder="Search datasets..." 
-              className="w-full bg-transparent border-none outline-none text-ink-900 font-[Jost] pl-12 pr-4 py-3 placeholder:text-ink-300"
-            />
+          <div className="flex items-center gap-3 mb-4 md:mb-0">
+            <span className="w-1.5 h-1.5 rounded-full bg-copper-500"></span>
+            <span className="font-[DM_Mono] text-[10px] uppercase text-ink-300 tracking-[0.2em]">
+              Active Listings - {datasets.length} Datasets
+            </span>
           </div>
-          <div className="h-8 w-px bg-ivory-300 hidden md:block" />
-          <div className="flex gap-2 w-full md:w-auto overflow-x-auto custom-scrollbar pb-1 md:pb-0 px-2">
-            {["ALL", "HEALTHCARE", "FINANCE", "AI"].map((cat) => (
+
+          <div className="flex gap-2 w-full md:w-auto overflow-x-auto custom-scrollbar">
+            {["ALL", "HEALTHCARE", "FINANCIAL", "NLP", "IOT"].map((cat) => (
               <button 
                 key={cat}
                 onClick={() => setFilter(cat)}
-                className={`px-4 py-2 font-[DM_Mono] text-[9px] uppercase tracking-wider whitespace-nowrap transition-all ${
+                className={`px-4 py-1.5 font-[DM_Mono] text-[10px] uppercase tracking-widest whitespace-nowrap transition-all rounded-sm border ${
                   filter === cat 
-                    ? "border border-copper-500 text-copper-500 bg-ivory-50" 
-                    : "border border-ivory-300 text-ink-300 bg-transparent hover:border-copper-500 hover:text-copper-500 hover:bg-ivory-50"
+                    ? "border-ink-900 text-ink-900 bg-transparent" 
+                    : "border-ink-200 text-ink-500 bg-transparent hover:border-ink-900 hover:text-ink-900"
                 }`}
               >
                 {cat}
@@ -84,13 +80,17 @@ export default function MarketplacePage() {
           </motion.div>
         ) : (
           <motion.div 
-            className="flex flex-col w-full bg-ivory-100 border-t border-ivory-300"
+            className="flex flex-col w-full"
             layout
           >
-            {/* Table Header Row (Simulated) */}
-            <div className="hidden sm:flex bg-ivory-50 font-[DM_Mono] text-[8px] uppercase tracking-widest text-ink-100 py-2 px-4 border-b border-ivory-200">
-               <div className="flex-1">Dataset Information</div>
-               <div className="w-32 text-right">Price</div>
+            {/* Table Header Row */}
+            <div className="hidden sm:grid grid-cols-[300px_150px_100px_150px_100px_auto] gap-4 items-center font-[DM_Mono] text-[8px] uppercase tracking-[0.25em] text-ink-200 py-3 px-6 border-y border-ivory-300 mb-4 bg-ivory-50/50">
+               <div className="pl-16 text-center">Dataset</div>
+               <div className="text-center">CID</div>
+               <div className="text-center">Size</div>
+               <div className="text-center">Type</div>
+               <div className="text-center">Price</div>
+               <div></div>
             </div>
 
             <AnimatePresence>

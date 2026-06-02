@@ -85,11 +85,12 @@ export function Navbar() {
                       userSelect: 'none',
                     },
                   })}
+                  className="flex items-center h-full border-l border-ivory-300 pl-4"
                 >
                   {(() => {
                     if (!connected) {
                       return (
-                        <button onClick={openConnectModal} type="button" className="bg-ink-900 text-ivory-100 hover:bg-copper-500 font-[DM_Mono] text-[10px] uppercase tracking-wider px-4 py-2 transition-colors">
+                        <button onClick={openConnectModal} type="button" className="bg-transparent border border-ink-300 text-ink-900 hover:border-copper-500 font-[DM_Mono] text-[10px] uppercase tracking-wider px-4 py-2 transition-colors">
                           Connect Wallet
                         </button>
                       );
@@ -97,18 +98,18 @@ export function Navbar() {
 
                     if (chain.unsupported) {
                       return (
-                        <button onClick={openChainModal} type="button" className="bg-red-500 text-white font-[DM_Mono] text-[10px] uppercase tracking-wider px-4 py-2">
+                        <button onClick={openChainModal} type="button" className="bg-transparent border border-red-500 text-red-500 hover:bg-red-50 font-[DM_Mono] text-[10px] uppercase tracking-wider px-4 py-2 transition-colors">
                           Wrong network
                         </button>
                       );
                     }
 
                     return (
-                      <div className="flex items-center gap-3">
+                      <div className="flex items-center gap-4 h-full">
                         <button
                           onClick={openChainModal}
                           type="button"
-                          className="flex items-center gap-1 border border-copper-300 text-copper-500 bg-ivory-50 font-[DM_Mono] text-[9px] uppercase px-3 py-1.5 transition-colors hover:bg-ivory-100"
+                          className="flex items-center gap-1 border border-copper-300 text-copper-500 bg-transparent font-[DM_Mono] text-[9px] uppercase px-3 py-1.5 transition-colors hover:bg-ivory-50"
                         >
                           {chain.hasIcon && (
                             <div className="w-3 h-3 overflow-hidden rounded-full">
@@ -119,10 +120,11 @@ export function Navbar() {
                           )}
                           {chain.name}
                         </button>
+                        <div className="h-8 w-px bg-ivory-300 hidden sm:block"></div>
                         <button 
                           onClick={openAccountModal} 
                           type="button"
-                          className="bg-ink-900 text-ivory-100 hover:bg-copper-500 font-[DM_Mono] text-[10px] uppercase tracking-wider px-4 py-2 transition-colors"
+                          className="bg-transparent border border-ink-300 text-ink-900 hover:border-copper-500 font-[DM_Mono] text-[10px] uppercase tracking-wider px-4 py-2 transition-colors"
                         >
                           {account.displayName}
                         </button>
