@@ -73,18 +73,18 @@ export const EmailReceiptModal: React.FC<EmailReceiptModalProps> = ({ isOpen, ty
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm animate-[fadeIn_0.3s_ease-out]">
-      <div className="relative w-full max-w-md bg-bg border border-accent-cyan/30 p-8 rounded-xl shadow-[0_0_40px_-10px_rgba(0,255,255,0.2)]">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-ivory-100/90 backdrop-blur-sm animate-[fadeIn_0.3s_ease-out]">
+      <div className="relative w-full max-w-md bg-ivory-50 border border-ivory-300 p-8">
         
-        <h2 className="text-2xl font-bold text-text-primary mb-2 font-mono flex items-center gap-2">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent-cyan)" strokeWidth="2">
+        <h2 className="text-2xl font-[Playfair_Display] font-black text-ink-900 mb-2 flex items-center gap-2">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" className="text-copper-500" strokeWidth="2">
             <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
             <polyline points="22,6 12,13 2,6"></polyline>
           </svg>
           Send Receipt
         </h2>
         
-        <p className="text-text-secondary text-sm mb-6">
+        <p className="text-ink-500 text-sm mb-6 font-[Jost]">
           Your transaction was successful. Would you like an encrypted receipt sent to your email?
         </p>
 
@@ -95,16 +95,16 @@ export const EmailReceiptModal: React.FC<EmailReceiptModalProps> = ({ isOpen, ty
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="operator@nexus.com" 
-              className="w-full bg-bg-elevated border border-bg-border rounded px-4 py-3 text-text-primary focus:outline-none focus:border-accent-cyan font-mono text-sm"
+              className="w-full border-b border-ivory-300 bg-transparent px-0 py-3 text-ink-900 font-[Jost] focus:outline-none focus:border-copper-500 transition-colors"
             />
           </div>
 
-          <label className="flex items-center gap-2 text-sm text-text-secondary cursor-pointer">
+          <label className="flex items-center gap-2 text-[10px] font-[DM_Mono] uppercase tracking-widest text-ink-500 cursor-pointer">
             <input 
               type="checkbox" 
               checked={remember}
               onChange={(e) => setRemember(e.target.checked)}
-              className="accent-accent-cyan"
+              className="accent-copper-500"
             />
             Remember this email
           </label>
@@ -113,26 +113,26 @@ export const EmailReceiptModal: React.FC<EmailReceiptModalProps> = ({ isOpen, ty
             <button 
               onClick={onClose}
               disabled={isSending}
-              className="flex-1 py-3 text-sm font-medium rounded text-text-secondary border border-bg-border hover:bg-bg-elevated transition-colors"
+              className="flex-1 py-3 text-[10px] font-[DM_Mono] uppercase tracking-widest text-ink-500 border border-ivory-300 hover:bg-ivory-100 hover:text-ink-900 transition-colors"
             >
               Skip
             </button>
             <button 
               onClick={handleSend}
               disabled={isSending || !email}
-              className="flex-1 py-3 text-sm font-bold font-mono rounded bg-accent-cyan/10 text-accent-cyan border border-accent-cyan/50 hover:bg-accent-cyan hover:text-black transition-all disabled:opacity-50"
+              className="flex-1 py-3 text-[10px] font-[DM_Mono] uppercase tracking-widest bg-copper-500 text-ivory-50 hover:bg-copper-600 transition-colors disabled:opacity-50"
             >
               {isSending ? "Sending..." : "Send Receipt"}
             </button>
           </div>
 
           {status === 'success' && (
-            <div className="text-center text-accent-cyan text-sm mt-2 animate-pulse">
+            <div className="text-center text-copper-500 text-[10px] font-[DM_Mono] uppercase tracking-widest mt-2 animate-pulse">
               ✓ Receipt sent successfully!
             </div>
           )}
           {status === 'error' && (
-            <div className="text-center text-red-400 text-sm mt-2">
+            <div className="text-center text-red-500 text-[10px] font-[DM_Mono] uppercase tracking-widest mt-2">
               Failed to send receipt. You can safely skip.
             </div>
           )}

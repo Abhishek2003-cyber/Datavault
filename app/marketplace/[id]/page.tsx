@@ -126,55 +126,52 @@ export default function DatasetDetailPage() {
     >
       <div className="flex flex-col lg:flex-row gap-12 max-w-6xl mx-auto">
         
-        {/* Left Col: Cinematic Details */}
+        {/* Left Col: Details */}
         <div className="flex-1 space-y-8">
           <motion.div variants={fadeUp} className="flex flex-wrap gap-3 items-center">
-            <span className="badge badge-cyan">{dataset.category}</span>
-            {dataset.is_verified && <span className="badge badge-green flex items-center gap-1"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Verified</span>}
-            {dataset.cdr_vault_uuid != null && <span className="badge badge-cyan flex items-center gap-1"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg> Vault #{dataset.cdr_vault_uuid}</span>}
+            <span className="border border-copper-300 text-copper-500 bg-ivory-50 font-[DM_Mono] text-[8px] uppercase px-2 py-1">{dataset.category}</span>
+            {dataset.is_verified && <span className="border border-ivory-300 text-ink-300 font-[DM_Mono] text-[8px] uppercase px-2 py-1 flex items-center gap-1"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Verified</span>}
+            {dataset.cdr_vault_uuid != null && <span className="border border-ivory-300 text-ink-300 font-[DM_Mono] text-[8px] uppercase px-2 py-1 flex items-center gap-1"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg> Vault #{dataset.cdr_vault_uuid}</span>}
           </motion.div>
           
-          <motion.h1 variants={fadeUp} className="text-5xl lg:text-7xl font-bold leading-tight font-sans tracking-tight text-white drop-shadow-[0_0_20px_rgba(255,255,255,0.2)]">
+          <motion.h1 variants={fadeUp} className="text-5xl lg:text-7xl font-[Playfair_Display] font-black tracking-tight leading-none text-ink-900">
             {dataset.name}
           </motion.h1>
           
-          <motion.div variants={fadeUp} className="flex items-center gap-4 text-sm text-text-secondary font-mono pb-8 border-b border-white/5">
+          <motion.div variants={fadeUp} className="flex items-center gap-4 text-sm text-ink-500 font-[DM_Mono] pb-8 border-b border-ivory-300">
             <div className="flex items-center gap-2">
-              <div className="w-6 h-6 rounded-full bg-gradient-to-br from-accent-cyan to-accent-violet shadow-glow-cyan" />
-              <span className="text-white font-semibold">{formatAddress(dataset.owner_address)}</span>
+              <span className="text-ink-900 font-semibold">{formatAddress(dataset.owner_address)}</span>
             </div>
-            <div className="w-1 h-1 rounded-full bg-white/20" />
+            <div className="w-1 h-1 rounded-full bg-ivory-300" />
             <div>{formatDate(dataset.created_at)}</div>
-            <div className="w-1 h-1 rounded-full bg-white/20" />
+            <div className="w-1 h-1 rounded-full bg-ivory-300" />
             <div className="flex items-center gap-1"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg> {dataset.download_count}</div>
           </motion.div>
           
-          <motion.div variants={fadeUp} className="prose prose-invert prose-p:text-text-secondary prose-p:leading-relaxed prose-p:text-lg max-w-none">
+          <motion.div variants={fadeUp} className="font-[Jost] font-light text-ink-500 leading-relaxed text-lg max-w-none">
             <p>{dataset.description}</p>
           </motion.div>
           
-          <motion.div variants={fadeUp} className="encrypted-element relative">
-            <div className="absolute -inset-4 bg-accent-cyan/5 blur-xl -z-10 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity" />
-            <h3 className="text-sm font-bold text-accent-cyan uppercase tracking-widest mb-4 font-mono flex items-center gap-2">
+          <motion.div variants={fadeUp} className="relative mt-8">
+            <h3 className="text-sm font-bold text-copper-500 uppercase tracking-widest mb-4 font-[DM_Mono] flex items-center gap-2">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="7.5 4.21 12 6.81 16.5 4.21"></polyline><polyline points="7.5 19.79 9 18.92"></polyline><polyline points="16.5 19.79 15 18.92"></polyline><polyline points="12 12 12 22"></polyline></svg>
               Encrypted Sample
             </h3>
-            <div className="glass-panel rounded-xl p-5 overflow-x-auto relative group">
-              <div className="absolute inset-0 bg-gradient-to-r from-accent-cyan/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-              <pre className="font-mono text-xs text-text-mono whitespace-pre opacity-70 group-hover:opacity-100 transition-opacity relative z-10 drop-shadow-[0_0_5px_rgba(0,240,255,0.5)]">
+            <div className="bg-ivory-50 border-l-2 border-copper-300 p-4 overflow-x-auto relative group">
+              <pre className="font-[DM_Mono] text-[10px] text-ink-500 whitespace-pre">
                 {dataset.sample_preview}
               </pre>
             </div>
           </motion.div>
           
-          <motion.div variants={fadeUp}>
-            <h3 className="text-sm font-bold text-text-primary uppercase tracking-widest mb-4 font-mono">Index Tags</h3>
+          <motion.div variants={fadeUp} className="mt-8">
+            <h3 className="text-sm font-bold text-ink-900 uppercase tracking-widest mb-4 font-[DM_Mono]">Index Tags</h3>
             <div className="flex flex-wrap gap-2">
               {dataset.tags.map((tag: string) => (
-                <span key={tag} className="badge bg-bg-surface border-bg-border-2 text-text-secondary">#{tag}</span>
+                <span key={tag} className="border border-ivory-300 text-ink-300 font-[DM_Mono] text-[8px] uppercase px-2 py-1">#{tag}</span>
               ))}
               {dataset.ai_tags.map((tag: string) => (
-                <span key={`ai-${tag}`} className="badge badge-amber flex items-center gap-1">
+                <span key={`ai-${tag}`} className="border border-copper-300 text-copper-500 bg-ivory-50 font-[DM_Mono] text-[8px] uppercase px-2 py-1 flex items-center gap-1">
                   <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
                   {tag}
                 </span>
@@ -183,34 +180,29 @@ export default function DatasetDetailPage() {
           </motion.div>
         </div>
 
-        {/* Right Col: Floating 3D Purchase Card */}
+        {/* Right Col: Purchase Card */}
         <motion.div variants={fadeUp} className="w-full lg:w-[400px] flex-shrink-0 relative z-20">
           <motion.div 
-            className="sticky top-28 glass-panel rounded-2xl p-8 overflow-hidden group shadow-glow-cyan"
-            whileHover={{ y: -5, boxShadow: "0 0 80px -20px rgba(0, 240, 255, 0.4)" }}
-            transition={{ type: "spring", stiffness: 400, damping: 30 }}
+            className="sticky top-28 bg-ivory-50 border border-ivory-300 p-8 overflow-hidden group"
           >
-            {/* Holographic animated edge */}
-            <div className="absolute inset-0 bg-gradient-to-br from-accent-cyan/30 via-transparent to-accent-violet/30 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
-            
             <div className="relative z-10 text-center mb-8">
               {dataset.is_private_vault ? (
                 <>
-                  <div className="text-4xl font-bold font-sans tracking-tighter text-white mb-2 drop-shadow-md">
+                  <div className="text-4xl font-[Playfair_Display] font-bold text-ink-900 mb-2">
                     PRIVATE VAULT
                   </div>
-                  <div className="text-sm text-text-secondary font-mono flex items-center justify-center gap-2">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent-amber)" strokeWidth="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                  <div className="text-[10px] text-ink-300 font-[DM_Mono] uppercase flex items-center justify-center gap-2">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
                     Owner Access Only
                   </div>
                 </>
               ) : (
                 <>
-                  <div className="text-6xl font-bold font-sans tracking-tighter text-white mb-2 drop-shadow-md">
-                    {dataset.price_in_ip} <span className="text-2xl text-accent-cyan tracking-normal font-mono">{dataset.price_token}</span>
+                  <div className="text-6xl font-[Playfair_Display] font-bold text-ink-900 mb-2">
+                    {dataset.price_in_ip} <span className="text-2xl text-ink-500 font-[DM_Mono]">{dataset.price_token}</span>
                   </div>
-                  <div className="text-sm text-text-secondary font-mono flex items-center justify-center gap-2">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent-green)" strokeWidth="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                  <div className="text-[10px] text-ink-300 font-[DM_Mono] uppercase flex items-center justify-center gap-2">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
                     Perpetual License Granted
                   </div>
                 </>
@@ -219,51 +211,50 @@ export default function DatasetDetailPage() {
             
             <button 
               onClick={handlePurchaseAndDecrypt}
-              className={`w-full py-5 text-lg mb-8 flex justify-center items-center gap-3 magnetic-hover overflow-hidden relative group/btn ${
+              className={`w-full py-4 text-sm font-[DM_Mono] tracking-widest uppercase mb-8 flex justify-center items-center gap-3 transition-colors ${
                 dataset.is_private_vault 
-                  ? 'bg-gradient-to-r from-amber-500 to-orange-600 text-black rounded-2xl font-semibold shadow-[0_0_30px_rgba(245,158,11,0.3)] hover:shadow-[0_0_50px_rgba(245,158,11,0.5)]' 
-                  : 'btn-primary'
+                  ? 'border border-ivory-300 text-ink-300 hover:border-copper-500 hover:text-copper-500 bg-transparent' 
+                  : 'bg-copper-500 hover:bg-copper-600 text-ivory-50'
               }`}
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover/btn:animate-[shimmer_1.5s_infinite]" />
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="group-hover/btn:scale-110 transition-transform">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
                 <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
               </svg>
               {dataset.is_private_vault ? "DECRYPT PRIVATE VAULT" : "PURCHASE & DECRYPT"}
             </button>
             
-            <div className="space-y-4 font-mono text-sm">
-              <div className="flex justify-between items-center pb-3 border-b border-white/5 group-hover:border-accent-cyan/20 transition-colors">
-                <span className="text-text-tertiary uppercase tracking-wider text-xs">Size</span>
-                <span className="text-white font-medium">{formatBytes(dataset.file_size_bytes)}</span>
+            <div className="space-y-4 font-[DM_Mono] text-xs">
+              <div className="flex justify-between items-center pb-3 border-b border-ivory-200">
+                <span className="text-ink-300 uppercase tracking-wider">Size</span>
+                <span className="text-ink-900 font-bold">{formatBytes(dataset.file_size_bytes)}</span>
               </div>
-              <div className="flex justify-between items-center pb-3 border-b border-white/5 group-hover:border-accent-cyan/20 transition-colors">
-                <span className="text-text-tertiary uppercase tracking-wider text-xs">Records</span>
-                <span className="text-white font-medium">{dataset.row_count ? dataset.row_count.toLocaleString() : 'Undisclosed'}</span>
+              <div className="flex justify-between items-center pb-3 border-b border-ivory-200">
+                <span className="text-ink-300 uppercase tracking-wider">Records</span>
+                <span className="text-ink-900 font-bold">{dataset.row_count ? dataset.row_count.toLocaleString() : 'Undisclosed'}</span>
               </div>
-              <div className="flex justify-between items-center pb-3 border-b border-white/5 group-hover:border-accent-cyan/20 transition-colors">
-                <span className="text-text-tertiary uppercase tracking-wider text-xs">Format</span>
-                <span className="text-white font-medium">{dataset.file_format}</span>
+              <div className="flex justify-between items-center pb-3 border-b border-ivory-200">
+                <span className="text-ink-300 uppercase tracking-wider">Format</span>
+                <span className="text-ink-900 font-bold">{dataset.file_format}</span>
               </div>
               <div className="flex justify-between items-center pt-3">
-                <span className="text-text-tertiary uppercase tracking-wider text-xs">IP Asset</span>
+                <span className="text-ink-300 uppercase tracking-wider">IP Asset</span>
                 {dataset.ip_asset_id ? (
-                  <a href={`https://aeneid.storyscan.io/ip/${dataset.ip_asset_id}`} target="_blank" rel="noreferrer" className="text-accent-cyan hover:text-white transition-colors flex items-center gap-1">
-                    {formatAddress(dataset.ip_asset_id)} <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                  <a href={`https://aeneid.storyscan.io/ip/${dataset.ip_asset_id}`} target="_blank" rel="noreferrer" className="text-copper-500 hover:text-copper-600 transition-colors flex items-center gap-1">
+                    {formatAddress(dataset.ip_asset_id)} <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
                   </a>
                 ) : (
-                  <span className="text-text-tertiary">Unregistered</span>
+                  <span className="text-ink-300">Unregistered</span>
                 )}
               </div>
               <div className="flex justify-between items-center pt-3">
-                <span className="text-text-tertiary uppercase tracking-wider text-xs">Node</span>
+                <span className="text-ink-300 uppercase tracking-wider">Node</span>
                 {dataset.ipfs_cid ? (
-                  <a href={`${process.env.NEXT_PUBLIC_IPFS_GATEWAY || "https://gateway.lighthouse.storage/ipfs/"}${dataset.ipfs_cid}`} target="_blank" rel="noreferrer" className="text-accent-cyan hover:text-white transition-colors flex items-center gap-1">
-                    Lighthouse <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                  <a href={`${process.env.NEXT_PUBLIC_IPFS_GATEWAY || "https://gateway.lighthouse.storage/ipfs/"}${dataset.ipfs_cid}`} target="_blank" rel="noreferrer" className="text-copper-500 hover:text-copper-600 transition-colors flex items-center gap-1">
+                    Lighthouse <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
                   </a>
                 ) : (
-                  <span className="text-text-tertiary">Offline</span>
+                  <span className="text-ink-300">Offline</span>
                 )}
               </div>
             </div>

@@ -115,79 +115,65 @@ export default function DashboardPage() {
 
   return (
     <div className="relative min-h-screen pb-20 overflow-hidden">
-      {/* Intelligence Command Center Background */}
-      <div className="absolute inset-0 pointer-events-none z-0 fixed top-0 bg-bg">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,240,255,0.03)_0%,rgba(2,4,10,1)_100%)]" />
-        <div className="absolute inset-0 bg-grid-pattern opacity-40" />
-        {/* Radar sweeping effect */}
-        <div className="absolute top-[50%] left-[50%] w-[150vw] h-[150vw] -translate-x-1/2 -translate-y-1/2 bg-[conic-gradient(from_0deg_at_50%_50%,rgba(0,240,255,0)_0deg,rgba(0,240,255,0.05)_360deg)] animate-[spin_10s_linear_infinite] rounded-full pointer-events-none mix-blend-screen" />
-      </div>
-      
-      <div className="absolute inset-0 pointer-events-none z-0">
-        <HexStream opacity={0.05} rows={4} />
-      </div>
-      
-      <div className="relative z-10 pt-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-12 border-b border-white/10 pb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
+      <div className="relative z-10 pt-12 max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="mb-12 border-b border-ivory-300 pb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
-            <div className="flex items-center gap-3 mb-2">
-              <div className="w-3 h-3 rounded-full bg-accent-cyan animate-pulse shadow-glow-cyan" />
-              <span className="text-accent-cyan font-mono text-sm tracking-widest uppercase">Secured Connection</span>
+            <div className="flex items-center gap-2 mb-2">
+              <div className="w-2 h-2 rounded-full bg-copper-500" />
+              <span className="text-ink-300 font-[DM_Mono] text-[10px] tracking-widest uppercase">Secured Connection</span>
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold text-white tracking-tight drop-shadow-[0_0_15px_rgba(255,255,255,0.2)]">Command Center</h1>
-            <p className="text-text-secondary text-lg mt-2 font-mono">
-              Monitor network assets, sales telemetry, and vault statuses.
+            <h1 className="text-3xl md:text-5xl font-[Playfair_Display] font-black text-ink-900 tracking-tight">Command Center</h1>
+            <p className="text-ink-500 font-[Jost] text-base mt-2 max-w-2xl">
+              Monitor network assets, sales telemetry, and manage private vaults.
             </p>
           </div>
         </div>
 
         {!isConnected ? (
-          <div className="text-center py-24 glass-panel rounded-2xl border border-white/10 relative overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-t from-accent-cyan/5 to-transparent pointer-events-none" />
-            <h2 className="text-3xl font-bold text-white mb-4 drop-shadow-md">Awaiting Authentication</h2>
-            <p className="text-text-secondary font-mono">Connect your verified wallet to access the command center.</p>
+          <div className="text-center py-24 bg-ivory-50 border border-ivory-300 relative overflow-hidden">
+            <h2 className="text-2xl font-[Playfair_Display] font-bold text-ink-900 mb-2">Awaiting Authentication</h2>
+            <p className="text-ink-500 font-[Jost] text-sm">Connect your verified wallet to access the command center.</p>
           </div>
         ) : myDatasets.length === 0 ? (
-          <div className="text-center py-24 glass-panel rounded-2xl border border-dashed border-white/20 flex flex-col items-center relative overflow-hidden group">
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent to-accent-cyan/5 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-            <div className="w-20 h-20 rounded-full bg-accent-cyan/10 flex items-center justify-center text-accent-cyan mb-6 shadow-glow-cyan border border-accent-cyan/20">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <div className="text-center py-24 bg-ivory-50 border border-ivory-300 flex flex-col items-center relative overflow-hidden group">
+            <div className="w-16 h-16 rounded-full bg-ivory-100 flex items-center justify-center text-copper-500 mb-6 border border-copper-300">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
                 <line x1="12" y1="8" x2="12" y2="16"></line>
                 <line x1="8" y1="12" x2="16" y2="12"></line>
               </svg>
             </div>
-            <h2 className="text-3xl font-bold text-white mb-3">No Active Assets</h2>
-            <p className="text-text-secondary mb-8 max-w-md mx-auto font-mono text-sm leading-relaxed">
+            <h2 className="text-2xl font-[Playfair_Display] font-bold text-ink-900 mb-2">No Active Assets</h2>
+            <p className="text-ink-500 font-[Jost] mb-8 max-w-sm mx-auto text-sm">
               No encrypted payloads detected on the network. Initialize an upload sequence to deploy your first asset.
             </p>
-            <Link href="/upload" className="btn-primary flex items-center gap-2">
+            <Link href="/upload" className="bg-copper-500 hover:bg-copper-600 text-ivory-50 font-[DM_Mono] uppercase tracking-wider py-3 px-6 transition-colors flex items-center gap-2">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
               INITIALIZE UPLOAD
             </Link>
           </div>
         ) : (
           <div className="space-y-6">
-            <div className="flex gap-4 border-b border-white/10 mb-8 pb-1">
+            <div className="flex gap-4 border-b border-ivory-200 mb-8 pb-1">
               <button
                 onClick={() => setActiveTab("marketplace")}
-                className={`pb-3 px-4 font-mono tracking-widest text-sm uppercase border-b-2 transition-all duration-300 ${
+                className={`pb-3 px-4 font-[DM_Mono] text-[10px] uppercase tracking-widest border-b-[2px] transition-all duration-300 ${
                   activeTab === "marketplace" 
-                    ? "border-accent-cyan text-accent-cyan shadow-[0_2px_10px_-2px_rgba(0,240,255,0.5)]" 
-                    : "border-transparent text-text-tertiary hover:text-white"
+                    ? "border-copper-500 text-copper-500" 
+                    : "border-transparent text-ink-300 hover:text-ink-900"
                 }`}
               >
                 Marketplace Telemetry ({marketplaceDatasets.length})
               </button>
               <button
                 onClick={() => setActiveTab("private")}
-                className={`pb-3 px-4 font-mono tracking-widest text-sm uppercase border-b-2 transition-all duration-300 flex items-center gap-2 ${
+                className={`pb-3 px-4 font-[DM_Mono] text-[10px] uppercase tracking-widest border-b-[2px] transition-all duration-300 flex items-center gap-2 ${
                   activeTab === "private" 
-                    ? "border-accent-amber text-accent-amber shadow-[0_2px_10px_-2px_rgba(245,158,11,0.5)]" 
-                    : "border-transparent text-text-tertiary hover:text-white"
+                    ? "border-copper-500 text-copper-500" 
+                    : "border-transparent text-ink-300 hover:text-ink-900"
                 }`}
               >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
                   <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
                 </svg>
@@ -197,9 +183,13 @@ export default function DashboardPage() {
 
             {activeTab === "marketplace" ? (
               marketplaceDatasets.length === 0 ? (
-                <div className="text-center py-12 text-text-secondary">No public marketplace listings found.</div>
+                <div className="text-center py-12 text-ink-300 font-[Jost]">No public marketplace listings found.</div>
               ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <div className="flex flex-col w-full bg-ivory-100 border-t border-ivory-300">
+                   <div className="hidden sm:flex bg-ivory-50 font-[DM_Mono] text-[8px] uppercase tracking-widest text-ink-100 py-2 px-4 border-b border-ivory-200">
+                      <div className="flex-1">Dataset Information</div>
+                      <div className="w-32 text-right">Price</div>
+                   </div>
                   {marketplaceDatasets.map((dataset) => (
                     <DatasetCard key={dataset.id} dataset={dataset} />
                   ))}
@@ -207,7 +197,7 @@ export default function DashboardPage() {
               )
             ) : (
               privateVaults.length === 0 ? (
-                <div className="text-center py-12 text-text-secondary">No private encrypted vaults found.</div>
+                <div className="text-center py-12 text-ink-300 font-[Jost]">No private encrypted vaults found.</div>
               ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                   {privateVaults.map((dataset) => (

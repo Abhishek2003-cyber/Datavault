@@ -2,126 +2,113 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ParticleTextEffect } from "../src/components/ui/particle-text-effect";
 
 export default function Home() {
   return (
-    <div className="relative min-h-screen flex flex-col items-center justify-center text-center overflow-hidden pt-20 pb-10 perspective-[2000px]">
+    <div className="relative min-h-screen pt-28 pb-10">
       
-      {/* STEP 7 - BACKGROUND ENHANCEMENT */}
-      {/* Animated dark gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#020617] via-[#000000] to-[#050505] -z-20" />
-      
-      {/* Subtle grid overlay */}
-      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCI+PHBhdGggZD0iTTAgMGg0MHY0MEgweiIgZmlsbD0ibm9uZSIvPjxwYXRoIGQ9Ik0zOSAzOUgwVjBoNDB2NDB6IiBmaWxsPSJub25lIiBzdHJva2U9InJnYmEoMjU1LDI1NSwyNTUsMC4wMykiIHN0cm9rZS13aWR0aD0iMSIvPjwvc3ZnPg==')] opacity-50 -z-10 pointer-events-none" />
-      
-      {/* Layered depth and holographic atmosphere orbs */}
-      <div className="absolute inset-0 flex items-center justify-center -z-10 pointer-events-none overflow-hidden">
-        {/* Validator Network Base Glow */}
-        <motion.div 
-          className="absolute w-[70vw] h-[70vw] bg-accent-cyan/10 rounded-full blur-[150px] mix-blend-screen"
-          animate={{ x: [0, 50, -50, 0], y: [0, -50, 50, 0], scale: [1, 1.1, 1] }}
-          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-        />
-        <motion.div 
-          className="absolute w-[60vw] h-[60vw] bg-accent-violet/10 rounded-full blur-[130px] mix-blend-screen"
-          animate={{ x: [0, -60, 60, 0], y: [0, 60, -60, 0], scale: [1, 1.2, 1] }}
-          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-        />
-        {/* Floating Data Packets */}
-        {Array.from({ length: 6 }).map((_, i) => (
-          <motion.div
-            key={`packet-${i}`}
-            className="absolute w-2 h-2 bg-accent-cyan rounded-full shadow-glow-cyan"
-            initial={{ opacity: 0, scale: 0 }}
-            animate={{ 
-              opacity: [0, 1, 1, 0],
-              scale: [0, 1.5, 1, 0],
-              x: Math.random() * 400 - 200,
-              y: Math.random() * 400 - 200
-            }}
-            transition={{
-              duration: 4 + Math.random() * 4,
-              repeat: Infinity,
-              delay: Math.random() * 5,
-              ease: "easeInOut"
-            }}
-          />
-        ))}
-      </div>
-
-      {/* Floating HUD Panels Removed as requested */}
-
       {/* Cinematic Content Layer */}
       <motion.div 
-        className="relative z-10 max-w-6xl mx-auto flex flex-col items-center w-full"
-        initial={{ opacity: 0, scale: 0.95, z: -50 }}
-        animate={{ opacity: 1, scale: 1, z: 0 }}
-        transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+        className="relative z-10 max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-16 w-full"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
       >
-        {/* Status Pill */}
-        <motion.div 
-          className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full border border-accent-cyan/40 bg-black/60 backdrop-blur-xl text-white text-xs font-mono mb-6 shadow-[0_0_30px_rgba(0,212,255,0.2)]"
-          initial={{ y: -20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 1 }}
-        >
-          <span className="relative flex h-2.5 w-2.5">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-cyan opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-accent-cyan shadow-[0_0_10px_#00d4ff]"></span>
-          </span>
-          CDR ONLINE
-        </motion.div>
+        {/* Left Column: Copy */}
+        <div className="flex-1">
+          {/* Status Pill */}
+          <motion.div 
+            className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full border border-ivory-300 bg-ivory-50 text-ink-500 text-[10px] uppercase font-[DM_Mono] tracking-widest mb-8 shadow-sm"
+            initial={{ y: -20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.5 }}
+          >
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-copper-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-copper-500"></span>
+            </span>
+            CDR ONLINE
+          </motion.div>
 
-        {/* STEP 8 - HERO SECTION INTEGRATION */}
-        {/* Particle Typography Animation replaces static text */}
-        <div className="w-full h-[300px] md:h-[400px] mb-8 relative z-20">
-          <ParticleTextEffect />
+          {/* Hero Heading */}
+          <h1 className="font-[Playfair_Display] font-black tracking-tight leading-none text-ink-900 text-6xl lg:text-[58px] mb-6">
+            The Data <em className="italic text-copper-500 not-italic">Vault</em>
+          </h1>
+
+          <motion.p 
+            className="text-lg font-[Jost] font-light text-ink-500 leading-relaxed max-w-xl mb-12"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.8 }}
+          >
+            The billion-dollar infrastructure for Confidential AI Datasets. 
+            Powered by Story Protocol & encrypted via validator networks.
+          </motion.p>
+
+          {/* Futuristic Button Group */}
+          <motion.div 
+            className="flex flex-col sm:flex-row items-center gap-4"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 1.2 }}
+          >
+            <Link href="/marketplace">
+              <button className="bg-copper-500 hover:bg-copper-600 text-ivory-50 font-[DM_Mono] uppercase tracking-wider transition-colors w-56 h-12 text-sm flex items-center justify-center gap-3">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:scale-110 transition-transform">
+                  <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                </svg>
+                ENTER MARKET
+              </button>
+            </Link>
+
+            <Link href="/upload">
+              <button className="border border-ivory-300 text-ink-300 hover:border-copper-500 hover:text-copper-500 font-[DM_Mono] uppercase transition-colors w-56 h-12 text-sm flex items-center justify-center gap-3 bg-transparent">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:-translate-y-1 transition-transform">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="17 8 12 3 7 8"></polyline>
+                  <line x1="12" y1="3" x2="12" y2="15"></line>
+                </svg>
+                SECURE UPLOAD
+              </button>
+            </Link>
+          </motion.div>
         </div>
 
-        <motion.p 
-          className="text-lg sm:text-2xl text-text-secondary max-w-3xl mb-16 font-sans font-medium leading-relaxed relative z-30"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.8 }}
-        >
-          The billion-dollar infrastructure for <span className="text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.5)]">Confidential AI Datasets</span>. <br className="hidden sm:block"/>
-          Powered by Story Protocol & encrypted via validator threshold networks.
-        </motion.p>
+        {/* Right Column: Stats + Vault Log */}
+        <div className="flex-1 w-full lg:w-auto">
+          <motion.div 
+            className="bg-ivory-50 border border-ivory-300 p-8"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1, delay: 1 }}
+          >
+            {/* Stats panel */}
+            <div className="grid grid-cols-3 gap-6 mb-8 pb-8 border-b border-ivory-300">
+              <div>
+                <div className="font-[Playfair_Display] text-3xl font-bold text-ink-900 mb-1">$4.2M</div>
+                <div className="font-[DM_Mono] text-[9px] uppercase text-ink-200 tracking-wider">Volume Secured</div>
+              </div>
+              <div>
+                <div className="font-[Playfair_Display] text-3xl font-bold text-ink-900 mb-1">12K+</div>
+                <div className="font-[DM_Mono] text-[9px] uppercase text-ink-200 tracking-wider">Active Vaults</div>
+              </div>
+              <div>
+                <div className="font-[Playfair_Display] text-3xl font-bold text-ink-900 mb-1">99.9%</div>
+                <div className="font-[DM_Mono] text-[9px] uppercase text-ink-200 tracking-wider">Uptime</div>
+              </div>
+            </div>
 
-        {/* Futuristic Button Group */}
-        <motion.div 
-          className="flex flex-col sm:flex-row items-center gap-6 relative z-30 mt-4"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 1.2 }}
-        >
-          <Link href="/marketplace" className="relative group">
-            <div className="absolute inset-0 bg-accent-cyan rounded-xl blur-xl opacity-30 group-hover:opacity-70 transition-opacity duration-500" />
-            <button className="relative w-64 h-16 text-xl tracking-widest uppercase rounded-xl flex items-center justify-center gap-3 overflow-hidden glass-panel text-white hover:border-accent-cyan hover:shadow-glow-cyan transition-all duration-300">
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-accent-cyan/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out" />
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-accent-cyan group-hover:scale-110 transition-transform">
-                <polygon points="5 3 19 12 5 21 5 3"></polygon>
-              </svg>
-              ENTER MARKET
-            </button>
-          </Link>
-
-          <Link href="/upload" className="relative group">
-            <button className="relative w-64 h-16 text-xl font-mono tracking-widest uppercase rounded-xl flex items-center justify-center gap-3 glass-panel border border-white/10 text-text-secondary hover:text-white hover:border-white/30 transition-all duration-300">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:-translate-y-1 transition-transform">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                <polyline points="17 8 12 3 7 8"></polyline>
-                <line x1="12" y1="3" x2="12" y2="15"></line>
-              </svg>
-              SECURE UPLOAD
-            </button>
-          </Link>
-        </motion.div>
+            {/* Vault Log Box */}
+            <div className="bg-ivory-50 border-l-2 border-copper-300 p-4 font-[DM_Mono] text-[10px] leading-loose">
+              <div><span className="text-copper-400">status:</span> <span className="text-copper-500 font-medium">encrypted ✓</span></div>
+              <div><span className="text-copper-400">target:</span> <span className="text-ink-500">model_weights_v4.pt</span></div>
+              <div><span className="text-copper-400">shards:</span> <span className="text-ink-500">10 / 10 available</span></div>
+              <div><span className="text-copper-400">process:</span> <span className="text-ink-500">AES-256-GCM + CDR</span></div>
+              <div className="mt-2 text-ink-100 italic">"never leaves device"</div>
+            </div>
+          </motion.div>
+        </div>
       </motion.div>
-
-      {/* Foreground light beams to ground the layout */}
-      <div className="absolute bottom-0 left-0 right-0 h-64 bg-gradient-to-t from-black via-black/80 to-transparent pointer-events-none z-40" />
     </div>
   );
 }

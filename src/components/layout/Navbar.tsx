@@ -28,77 +28,113 @@ export function Navbar() {
 
   return (
     <motion.nav 
-      className="fixed top-0 inset-x-0 z-50 flex flex-col items-center pt-4 px-4 transition-all duration-500 pointer-events-none"
+      className={`fixed top-0 inset-x-0 z-50 flex flex-col items-center justify-center px-4 transition-all duration-300 ${scrolled ? "bg-ivory-100 border-b border-ivory-300 h-14" : "bg-ivory-100 border-b border-ivory-300 h-14"}`}
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ type: "spring", stiffness: 100, damping: 20 }}
     >
-      {/* Top Status Strip */}
-      <motion.div 
-        className="flex items-center justify-between w-full max-w-7xl px-4 py-1 mb-2 rounded-full border border-bg-border/50 bg-bg-surface/50 backdrop-blur-md text-[10px] font-mono pointer-events-auto"
-        animate={{ opacity: scrolled ? 0 : 1, y: scrolled ? -20 : 0 }}
-      >
-        <div className="flex items-center gap-4">
-          <span className="text-text-tertiary hidden sm:inline">DATA.VAULT_OS // V1.0.0</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <div className={`w-1.5 h-1.5 rounded-full ${isReady ? 'bg-accent-green' : 'bg-accent-amber animate-pulse'} shadow-[0_0_8px_rgba(0,255,136,0.5)]`} />
-          <span className="text-accent-green tracking-widest">{isReady ? 'CDR_SYS_ONLINE' : 'INIT_WASM...'}</span>
-        </div>
-      </motion.div>
-
-      {/* Main Glass Navbar */}
-      <motion.div 
-        className={`w-full max-w-5xl rounded-2xl flex items-center justify-between px-6 transition-all duration-500 pointer-events-auto ${
-          scrolled 
-            ? "h-14 glass-panel border-accent-cyan/20" 
-            : "h-16 bg-bg-surface/30 backdrop-blur-sm border border-bg-border"
-        }`}
-      >
-        <Link href="/" className="flex items-center group pl-2">
-          <motion.img 
-            src="/logo.png" 
-            alt="DataVault Logo"
-            className="h-12 w-auto object-contain drop-shadow-[0_0_12px_rgba(0,212,255,0.4)] scale-[2] origin-left"
-            whileHover={{ scale: 2.1 }}
-            transition={{ type: "spring", stiffness: 300, damping: 20 }}
-          />
+      <div className="w-full max-w-5xl flex items-center justify-between mx-auto h-full">
+        
+        {/* LOGO */}
+        <Link href="/" className="flex items-center group">
+          <span className="text-2xl font-[Jost] font-bold text-ink-900 tracking-tight">Data</span>
+          <span className="text-2xl text-copper-500 font-[Playfair_Display] italic tracking-tight pr-1">vault</span>
         </Link>
 
-        <div className="hidden md:flex items-center gap-2">
+        {/* NAV LINKS */}
+        <div className="hidden md:flex items-center h-full gap-8">
           {NAV_LINKS.map((link) => {
             const isActive = pathname?.startsWith(link.href);
             return (
               <Link 
                 key={link.href} 
                 href={link.href}
-                className="relative px-4 py-2 text-sm font-medium transition-colors hover:text-white group z-10"
+                className={`relative flex items-center h-full text-[10px] font-[DM_Mono] uppercase tracking-widest transition-colors ${
+                  isActive 
+                    ? 'text-copper-500 border-b-2 border-copper-500' 
+                    : 'text-ink-300 hover:text-ink-900'
+                }`}
               >
-                <span className={`relative z-10 ${isActive ? 'text-white' : 'text-text-secondary group-hover:text-white'}`}>
-                  {link.name}
-                </span>
-                {isActive && (
-                  <motion.div 
-                    layoutId="nav-active"
-                    className="absolute inset-0 bg-accent-cyan/10 border border-accent-cyan/20 rounded-lg -z-10"
-                    transition={{ type: "spring", stiffness: 300, damping: 25 }}
-                  />
-                )}
-                {/* Magnetic hover glow */}
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 bg-gradient-to-b from-accent-cyan/10 to-transparent rounded-lg -z-20 blur-md transition-opacity" />
+                {link.name}
               </Link>
             );
           })}
         </div>
 
+        {/* WALLET BUTTON */}
         <div className="flex items-center gap-4">
-          <ConnectButton 
-            accountStatus="avatar" 
-            chainStatus="icon" 
-            showBalance={false} 
-          />
+          <ConnectButton.Custom>
+            {({
+              account,
+              chain,
+              openAccountModal,
+              openChainModal,
+              openConnectModal,
+              mounted,
+            }) => {
+              const ready = mounted;
+              const connected = ready && account && chain;
+
+              return (
+                <div
+                  {...(!ready && {
+                    'aria-hidden': true,
+                    style: {
+                      opacity: 0,
+                      pointerEvents: 'none',
+                      userSelect: 'none',
+                    },
+                  })}
+                >
+                  {(() => {
+                    if (!connected) {
+                      return (
+                        <button onClick={openConnectModal} type="button" className="bg-ink-900 text-ivory-100 hover:bg-copper-500 font-[DM_Mono] text-[10px] uppercase tracking-wider px-4 py-2 transition-colors">
+                          Connect Wallet
+                        </button>
+                      );
+                    }
+
+                    if (chain.unsupported) {
+                      return (
+                        <button onClick={openChainModal} type="button" className="bg-red-500 text-white font-[DM_Mono] text-[10px] uppercase tracking-wider px-4 py-2">
+                          Wrong network
+                        </button>
+                      );
+                    }
+
+                    return (
+                      <div className="flex items-center gap-3">
+                        <button
+                          onClick={openChainModal}
+                          type="button"
+                          className="flex items-center gap-1 border border-copper-300 text-copper-500 bg-ivory-50 font-[DM_Mono] text-[9px] uppercase px-3 py-1.5 transition-colors hover:bg-ivory-100"
+                        >
+                          {chain.hasIcon && (
+                            <div className="w-3 h-3 overflow-hidden rounded-full">
+                              {chain.iconUrl && (
+                                <img alt={chain.name ?? 'Chain icon'} src={chain.iconUrl} className="w-3 h-3" />
+                              )}
+                            </div>
+                          )}
+                          {chain.name}
+                        </button>
+                        <button 
+                          onClick={openAccountModal} 
+                          type="button"
+                          className="bg-ink-900 text-ivory-100 hover:bg-copper-500 font-[DM_Mono] text-[10px] uppercase tracking-wider px-4 py-2 transition-colors"
+                        >
+                          {account.displayName}
+                        </button>
+                      </div>
+                    );
+                  })()}
+                </div>
+              );
+            }}
+          </ConnectButton.Custom>
         </div>
-      </motion.div>
+      </div>
     </motion.nav>
   );
 }

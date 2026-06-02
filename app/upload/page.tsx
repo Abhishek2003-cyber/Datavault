@@ -83,13 +83,6 @@ export default function UploadPage() {
   return (
     <div className="relative min-h-screen py-24 px-4 overflow-hidden">
       
-      {/* Classified Upload Terminal Background */}
-      <div className="fixed inset-0 pointer-events-none z-[-1] bg-bg">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(239,68,68,0.05)_0%,rgba(2,4,10,1)_100%)]" />
-        <div className="absolute top-[30%] left-[20%] w-[40vw] h-[40vw] rounded-full bg-accent-red/5 blur-[120px] mix-blend-screen" />
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:30px_30px] opacity-30" />
-      </div>
-      
       <div className="max-w-[1200px] mx-auto relative z-10">
         
         {/* Header */}
@@ -99,11 +92,11 @@ export default function UploadPage() {
           transition={{ duration: 0.5 }}
           className="mb-12 text-center"
         >
-          <h1 className="text-4xl lg:text-5xl font-semibold tracking-tight text-white mb-4">
+          <h1 className="text-3xl lg:text-5xl font-[Playfair_Display] font-black tracking-tight text-ink-900 mb-4">
             Secure Dataset Upload
           </h1>
-          <p className="text-white/60 text-lg">
-            Encrypt, license, and store confidential datasets using CDR infrastructure.
+          <p className="text-ink-500 font-[Jost] text-base max-w-lg mx-auto">
+            Encrypt, license, and securely store your confidential AI datasets using CDR infrastructure.
           </p>
         </motion.div>
 
@@ -117,16 +110,16 @@ export default function UploadPage() {
             transition={{ duration: 0.5, delay: 0.1 }}
           >
             {/* Upload Mode Toggle */}
-            <div className="flex bg-[#08131f] rounded-2xl border border-white/[0.08] p-1 mb-2">
+            <div className="flex bg-ivory-50 border border-ivory-300 p-1 mb-2">
               <button
                 onClick={() => setUploadMode("marketplace")}
-                className={`flex-1 rounded-xl py-3 text-sm font-semibold transition-all duration-300 ${uploadMode === "marketplace" ? "bg-cyan-400/10 text-cyan-300 border border-cyan-400/20 shadow-[0_0_20px_rgba(0,180,255,0.1)]" : "text-white/40 hover:text-white/80 border border-transparent"}`}
+                className={`flex-1 py-2.5 text-[10px] font-[DM_Mono] uppercase tracking-widest transition-all duration-300 ${uploadMode === "marketplace" ? "bg-ivory-100 text-copper-500 border border-copper-300" : "text-ink-300 hover:text-ink-900 border border-transparent"}`}
               >
                 Public Marketplace
               </button>
               <button
                 onClick={() => setUploadMode("private")}
-                className={`flex-1 rounded-xl py-3 text-sm font-semibold transition-all duration-300 ${uploadMode === "private" ? "bg-cyan-400/10 text-cyan-300 border border-cyan-400/20 shadow-[0_0_20px_rgba(0,180,255,0.1)]" : "text-white/40 hover:text-white/80 border border-transparent"}`}
+                className={`flex-1 py-2.5 text-[10px] font-[DM_Mono] uppercase tracking-widest transition-all duration-300 ${uploadMode === "private" ? "bg-ivory-100 text-copper-500 border border-copper-300" : "text-ink-300 hover:text-ink-900 border border-transparent"}`}
               >
                 Private Vault
               </button>
@@ -134,12 +127,12 @@ export default function UploadPage() {
 
             {/* Dataset Name */}
             <div className="group relative flex flex-col gap-2">
-              <label className="text-[11px] font-medium text-text-secondary uppercase tracking-widest pl-1">Dataset Name</label>
+              <label className="text-[8px] font-[DM_Mono] text-ink-300 uppercase tracking-widest">Dataset Name</label>
               <input 
                 value={datasetName} 
                 onChange={e => setDatasetName(e.target.value)} 
                 type="text" 
-                className="w-full glass-panel px-5 py-4 text-white outline-none transition-all duration-300 focus:border-accent-cyan focus:shadow-glow-cyan placeholder:text-white/20" 
+                className="w-full border-b border-ivory-300 bg-transparent px-0 py-3 text-sm text-ink-900 font-[Jost] outline-none transition-all duration-300 focus:border-copper-500 placeholder:text-ink-200" 
                 placeholder="e.g. Healthcare MRI Dataset 2026" 
               />
             </div>
@@ -147,17 +140,17 @@ export default function UploadPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Category */}
               <div className="group relative flex flex-col gap-2">
-                <label className="text-[11px] font-medium text-text-secondary uppercase tracking-widest pl-1">Category</label>
+                <label className="text-[8px] font-[DM_Mono] text-ink-300 uppercase tracking-widest">Category</label>
                 <select 
                   value={category} 
                   onChange={e => setCategory(e.target.value)} 
-                  className="w-full glass-panel px-5 py-4 text-white outline-none transition-all duration-300 focus:border-accent-cyan focus:shadow-glow-cyan appearance-none"
+                  className="w-full border-b border-ivory-300 bg-transparent px-0 py-3 text-ink-900 font-[Jost] outline-none transition-all duration-300 focus:border-copper-500 appearance-none"
                 >
                   {CATEGORIES.map(cat => (
                     <option key={cat} value={cat}>{cat}</option>
                   ))}
                 </select>
-                <div className="absolute right-5 top-[42px] pointer-events-none opacity-50">
+                <div className="absolute right-2 top-[32px] pointer-events-none text-ink-300">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
                 </div>
               </div>
@@ -165,21 +158,21 @@ export default function UploadPage() {
               {/* Price */}
               {uploadMode === "marketplace" ? (
                 <div className="group relative flex flex-col gap-2">
-                  <label className="text-[11px] font-medium text-text-secondary uppercase tracking-widest pl-1">Price (IP)</label>
+                  <label className="text-[8px] font-[DM_Mono] text-ink-300 uppercase tracking-widest">Price (IP)</label>
                   <input 
                     value={price} 
                     onChange={e => setPrice(e.target.value)} 
                     type="number" 
-                    className="w-full glass-panel px-5 py-4 text-white outline-none transition-all duration-300 focus:border-accent-cyan focus:shadow-glow-cyan placeholder:text-white/20" 
+                    className="w-full border-b border-ivory-300 bg-transparent px-0 py-3 text-ink-900 font-[Jost] outline-none transition-all duration-300 focus:border-copper-500 placeholder:text-ink-200" 
                     placeholder="0.00" 
                   />
                 </div>
               ) : (
                 <div className="group relative flex flex-col gap-2">
-                  <label className="text-[11px] font-medium text-accent-red uppercase tracking-widest pl-1 drop-shadow-[0_0_5px_rgba(239,68,68,0.5)]">Storage Fee (IP / Year)</label>
-                  <div className="w-full glass-panel border-accent-red/30 px-5 py-4 text-accent-red outline-none flex items-center justify-between shadow-[0_0_20px_rgba(239,68,68,0.1)]">
+                  <label className="text-[8px] font-[DM_Mono] text-ink-900 uppercase tracking-widest">Storage Fee (IP / Year)</label>
+                  <div className="w-full border-b border-ivory-300 bg-transparent px-0 py-3 text-ink-900 font-[Jost] outline-none flex items-center justify-between">
                     <span className="font-bold text-lg">{file ? Math.max(1, Math.ceil(file.size / (1024 * 1024 * 1024))) : 1}</span>
-                    <span className="text-accent-red/50 text-xs">Auto-calculated</span>
+                    <span className="text-ink-300 text-xs font-[DM_Mono]">Auto-calculated</span>
                   </div>
                 </div>
               )}
@@ -192,12 +185,12 @@ export default function UploadPage() {
                 animate={{ opacity: 1, height: 'auto' }}
                 className="group relative flex flex-col gap-2"
               >
-                <label className="text-[11px] font-medium text-cyan-200/80 uppercase tracking-widest pl-1">Custom Category</label>
+                <label className="text-[8px] font-[DM_Mono] text-ink-300 uppercase tracking-widest">Custom Category</label>
                 <input 
                   value={customCategory} 
                   onChange={e => setCustomCategory(e.target.value)} 
                   type="text" 
-                  className="w-full rounded-2xl border border-white/[0.08] bg-[#08131f] px-5 py-4 text-white outline-none transition-all duration-300 focus:border-cyan-400/40 focus:shadow-[0_0_30px_rgba(0,180,255,0.15)] placeholder:text-white/20" 
+                  className="w-full border-b border-ivory-300 bg-transparent px-0 py-3 text-ink-900 font-[Jost] outline-none transition-all duration-300 focus:border-copper-500 placeholder:text-ink-200" 
                   placeholder="Type your category..." 
                 />
               </motion.div>
@@ -205,12 +198,12 @@ export default function UploadPage() {
 
             {/* Description */}
             <div className="group relative flex flex-col gap-2">
-              <label className="text-[11px] font-medium text-text-secondary uppercase tracking-widest pl-1">Description</label>
+              <label className="text-[8px] font-[DM_Mono] text-ink-300 uppercase tracking-widest">Description</label>
               <textarea 
                 value={description} 
                 onChange={e => setDescription(e.target.value)} 
                 rows={4} 
-                className="w-full glass-panel px-5 py-4 text-white outline-none transition-all duration-300 focus:border-accent-cyan focus:shadow-glow-cyan resize-none placeholder:text-white/20 custom-scrollbar" 
+                className="w-full border-b border-ivory-300 bg-transparent px-0 py-3 text-sm text-ink-900 font-[Jost] outline-none transition-all duration-300 focus:border-copper-500 resize-none placeholder:text-ink-200 custom-scrollbar" 
                 placeholder="Describe your dataset..." 
               />
             </div>
@@ -223,14 +216,14 @@ export default function UploadPage() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            {/* Premium Upload Area */}
+            {/* Upload Area */}
             <div 
               className={`
-                group relative flex h-[260px] flex-col items-center justify-center overflow-hidden rounded-[32px] border border-dashed transition-all duration-500
+                group relative flex h-[260px] flex-col items-center justify-center overflow-hidden border transition-all duration-500
                 ${isDragActive 
-                  ? "border-accent-cyan shadow-glow-cyan bg-accent-cyan/5" 
-                  : "border-white/20 bg-black/40 hover:border-accent-cyan hover:shadow-glow-cyan"}
-                backdrop-blur-2xl cursor-pointer
+                  ? "border-copper-500 bg-ivory-100" 
+                  : "border-ivory-300 bg-ivory-50 hover:border-copper-500"}
+                cursor-pointer
               `}
               onDragOver={(e) => { e.preventDefault(); setIsDragActive(true); }}
               onDragLeave={() => setIsDragActive(false)}
@@ -243,26 +236,26 @@ export default function UploadPage() {
               
               {isUploading ? (
                 <div className="flex flex-col items-center">
-                  <div className="w-12 h-12 rounded-full border-2 border-t-cyan-400 border-r-transparent border-b-cyan-400 border-l-transparent animate-spin mb-4" />
-                  <span className="text-cyan-300 font-semibold tracking-widest text-sm uppercase">Encrypting Payload...</span>
+                  <div className="w-12 h-12 rounded-full border-2 border-t-copper-500 border-r-transparent border-b-copper-500 border-l-transparent animate-spin mb-4" />
+                  <span className="text-copper-500 font-[DM_Mono] tracking-widest text-sm uppercase">Encrypting Payload...</span>
                 </div>
               ) : (
                 <label htmlFor="file-upload" className="w-full h-full flex flex-col items-center justify-center cursor-pointer p-6">
                   {file ? (
                     <div className="flex flex-col items-center text-center">
-                      <div className="w-16 h-16 rounded-full bg-cyan-400/10 flex items-center justify-center mb-4 shadow-[0_0_30px_rgba(0,180,255,0.2)]">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent-cyan)" strokeWidth="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                      <div className="w-16 h-16 rounded-full bg-ivory-100 border border-copper-300 flex items-center justify-center mb-4">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-copper-500"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
                       </div>
-                      <span className="text-white font-medium text-lg mb-1">{file.name}</span>
-                      <span className="text-cyan-400/60 font-mono text-xs tracking-wider">{(file.size/1024/1024).toFixed(2)} MB</span>
+                      <span className="text-ink-900 font-medium text-lg font-[Jost] mb-1">{file.name}</span>
+                      <span className="text-ink-500 font-[DM_Mono] text-xs tracking-wider">{(file.size/1024/1024).toFixed(2)} MB</span>
                     </div>
                   ) : (
                     <div className="flex flex-col items-center text-center">
-                      <div className="w-16 h-16 rounded-full bg-cyan-400/5 group-hover:bg-cyan-400/10 border border-cyan-400/10 flex items-center justify-center mb-4 transition-all duration-300 group-hover:scale-110 shadow-[0_0_0_rgba(0,180,255,0)] group-hover:shadow-[0_0_30px_rgba(0,180,255,0.2)]">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-cyan-400/80"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                      <div className="w-14 h-14 rounded-full bg-ivory-100 border border-ivory-300 group-hover:border-copper-500 flex items-center justify-center mb-4 transition-all duration-500 group-hover:-translate-y-1">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-ink-300 group-hover:text-copper-500 transition-colors"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
                       </div>
-                      <span className="text-white font-semibold text-lg mb-2 tracking-tight">Upload Dataset</span>
-                      <span className="text-white/40 text-sm leading-relaxed">
+                      <span className="text-ink-900 font-medium text-base font-[Jost] mb-1">Upload Dataset</span>
+                      <span className="text-ink-500 font-[DM_Mono] text-xs">
                         Supports JPEG, PNG, TXT, PDF, CSV<br/>Max file size: 1GB
                       </span>
                     </div>
@@ -274,7 +267,7 @@ export default function UploadPage() {
             {/* Format Badges */}
             <div className="flex flex-wrap gap-2 mt-6 justify-center">
               {['JPEG', 'PNG', 'TXT', 'PDF', 'CSV'].map(fmt => (
-                <span key={fmt} className="rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-cyan-100 backdrop-blur-sm">
+                <span key={fmt} className="border border-ivory-300 text-ink-300 bg-ivory-50 px-2.5 py-1 text-[9px] uppercase tracking-widest font-[DM_Mono]">
                   {fmt}
                 </span>
               ))}
@@ -283,15 +276,13 @@ export default function UploadPage() {
             {/* Action Button */}
             <button
               className={`
-                mt-10 rounded-2xl px-6 py-4 text-sm font-semibold transition-all duration-300 w-full tracking-wide
-                ${(!file || isUploading) 
-                  ? 'bg-white/5 text-white/30 cursor-not-allowed border border-white/10' 
-                  : 'bg-gradient-to-r from-cyan-400 to-blue-500 text-black hover:scale-[1.02] hover:shadow-[0_0_40px_rgba(0,180,255,0.4)]'}
+                mt-8 w-full bg-copper-500 hover:bg-copper-600 text-ivory-50 font-[DM_Mono] uppercase tracking-wider py-4 transition-colors
+                ${(!file || isUploading) ? 'opacity-50 grayscale' : ''}
               `}
               disabled={!file || isUploading}
               onClick={handleUpload}
             >
-              {isUploading ? "ENCRYPTING & TRANSACTING..." : "SECURE & UPLOAD DATASET (REAL TX)"}
+              {isUploading ? "ENCRYPTING..." : "SECURE & UPLOAD (REAL TX)"}
             </button>
           </motion.div>
         </div>

@@ -1,20 +1,26 @@
 import type { Metadata } from "next";
-import { IBM_Plex_Mono, DM_Sans } from "next/font/google";
+import { Playfair_Display, DM_Mono, Jost } from "next/font/google";
 import "./globals.css";
 import { Providers } from "../src/components/providers/Providers";
 import { Navbar } from "../src/components/layout/Navbar";
-import { CustomCursor } from "../src/components/ui/CustomCursor";
-import { AnimatedBackground } from "../src/components/ui/AnimatedBackground";
 
-const ibmPlexMono = IBM_Plex_Mono({
+const playfair = Playfair_Display({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  variable: "--font-ibm-plex-mono",
+  weight: ["400", "700", "900"],
+  style: ["normal", "italic"],
+  variable: "--font-playfair",
 });
 
-const dmSans = DM_Sans({
+const dmMono = DM_Mono({
   subsets: ["latin"],
-  variable: "--font-dm-sans",
+  weight: ["400", "500"],
+  variable: "--font-dm-mono",
+});
+
+const jost = Jost({
+  subsets: ["latin"],
+  weight: ["300", "400", "500"],
+  variable: "--font-jost",
 });
 
 export const metadata: Metadata = {
@@ -28,10 +34,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${ibmPlexMono.variable} ${dmSans.variable}`}>
-      <body className="bg-bg text-text-primary font-sans antialiased min-h-screen relative selection:bg-accent-cyan/30 selection:text-white">
-        <CustomCursor />
-        <AnimatedBackground />
+    <html lang="en" suppressHydrationWarning className={`${playfair.variable} ${dmMono.variable} ${jost.variable}`}>
+      <body className="bg-ivory-100 text-ink-900 font-sans antialiased min-h-screen relative selection:bg-copper-300 selection:text-ink-900">
         <Providers>
           <Navbar />
           <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 relative z-10">
