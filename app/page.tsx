@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { FAQSection } from "../src/components/home/FAQSection";
+import { ParticleTextEffect } from "../src/components/ui/particle-text-effect";
 
 export default function Home() {
   return (
@@ -23,12 +24,10 @@ export default function Home() {
             <div className="h-px bg-copper-300 flex-1"></div>
           </div>
 
-          {/* Hero Heading */}
-          <h1 className="font-[Playfair_Display] font-black tracking-tighter leading-[0.95] text-ink-900 text-6xl lg:text-[85px] mb-8">
-            Own your<br />
-            data.<br />
-            <em className="italic text-copper-500 font-medium">Always.</em>
-          </h1>
+          {/* Hero Heading (Particle Effect) */}
+          <div className="mb-8 w-full">
+            <ParticleTextEffect />
+          </div>
 
           <motion.p 
             className="text-[15px] font-[Jost] font-light text-ink-500 leading-relaxed max-w-md mb-12"

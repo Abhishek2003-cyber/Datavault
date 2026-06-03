@@ -2,20 +2,12 @@
 
 import React, { useEffect, useRef, useState } from "react";
 
-// STEP 1 — REPLACE DEFAULT WORDS
-const DEFAULT_WORDS = [
-  "DATAVAULT",
-  "CDR SECURED",
-  "STORY PROTOCOL",
-];
-
 export function ParticleTextEffect({
   className = ""
 }: { className?: string }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const frameCountRef = useRef(0);
-  const currentWordIndexRef = useRef(0);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -26,9 +18,8 @@ export function ParticleTextEffect({
     let animationFrameId: number;
     let particles: Particle[] = [];
     
-    // STEP 5 — FIX CANVAS SIZE
-    let width = window.innerWidth;
-    let height = 380;
+    let width = containerRef.current?.clientWidth || window.innerWidth / 2;
+    let height = 300;
 
     class Particle {
       x: number;
@@ -42,27 +33,23 @@ export function ParticleTextEffect({
       floatRadius: number;
 
       constructor(x: number, y: number, color: { r: number; g: number; b: number }) {
-        // Start slightly scattered around the center, not full screen, so they form faster
+        // Start scattered
         this.x = width / 2 + (Math.random() - 0.5) * 400;
         this.y = height / 2 + (Math.random() - 0.5) * 200;
         this.targetX = x;
         this.targetY = y;
         this.color = color;
         
-        // Increased particle size and base size to make text look brighter and thicker without trails
         this.particleSize = Math.random() * 1.5 + 1.0; 
         
-        // Spring physics settings (INCREASED SPEED)
-        this.easeSpeed = Math.random() * 0.15 + 0.08; // Super fast snappy formation
-        this.floatOffset = Math.random() * Math.PI * 2; // Random phase
-        this.floatRadius = Math.random() * 2 + 0.5; // How far they wobble from their letter
+        this.easeSpeed = Math.random() * 0.15 + 0.08; 
+        this.floatOffset = Math.random() * Math.PI * 2; 
+        this.floatRadius = Math.random() * 2 + 0.5; 
       }
 
       draw() {
         if (!ctx) return;
-        
-        // Increased shadow blur for stronger neon glow
-        ctx.shadowBlur = 10;
+        ctx.shadowBlur = 8;
         ctx.shadowColor = `rgb(${this.color.r}, ${this.color.g}, ${this.color.b})`;
         ctx.fillStyle = `rgb(${this.color.r}, ${this.color.g}, ${this.color.b})`;
         ctx.fillRect(this.x, this.y, this.particleSize, this.particleSize);
@@ -70,7 +57,6 @@ export function ParticleTextEffect({
       }
 
       update(mouse: { x: number, y: number, radius: number }) {
-        // 1. Calculate cinematic floating target
         const time = Date.now() * 0.001;
         const floatX = Math.sin(time + this.floatOffset) * this.floatRadius;
         const floatY = Math.cos(time + this.floatOffset) * this.floatRadius;
@@ -78,19 +64,16 @@ export function ParticleTextEffect({
         let actualTargetX = this.targetX + floatX;
         let actualTargetY = this.targetY + floatY;
 
-        // 2. Mouse Repulsion
         let dxMouse = mouse.x - this.x;
         let dyMouse = mouse.y - this.y;
         let distanceMouse = Math.sqrt(dxMouse * dxMouse + dyMouse * dyMouse);
         
         if (distanceMouse < mouse.radius) {
             let force = (mouse.radius - distanceMouse) / mouse.radius;
-            // Push away from mouse
             actualTargetX -= (dxMouse / distanceMouse) * force * 100;
             actualTargetY -= (dyMouse / distanceMouse) * force * 100;
         }
 
-        // 3. Easing (Spring to target)
         this.x += (actualTargetX - this.x) * this.easeSpeed;
         this.y += (actualTargetY - this.y) * this.easeSpeed;
       }
@@ -117,15 +100,15 @@ export function ParticleTextEffect({
     window.addEventListener('mouseout', handleMouseLeave);
 
     const init = () => {
-      width = window.innerWidth;
-      height = 380;
+      width = containerRef.current?.clientWidth || window.innerWidth / 2;
+      height = 300;
       canvas.width = width;
       canvas.height = height;
 
-      changeWord();
+      drawText();
     };
 
-    const changeWord = () => {
+    const drawText = () => {
       ctx.clearRect(0, 0, width, height);
       
       const offscreenCanvas = document.createElement('canvas');
@@ -134,55 +117,53 @@ export function ParticleTextEffect({
       const offscreenCtx = offscreenCanvas.getContext('2d', { willReadFrequently: true });
       if (!offscreenCtx) return;
 
-      offscreenCtx.fillStyle = "white";
-      offscreenCtx.textBaseline = "middle";
-      offscreenCtx.textAlign = "center";
+      offscreenCtx.textBaseline = "top";
+      offscreenCtx.textAlign = "left";
       
-      // Baseline massive font
-      let fontSize = Math.max(Math.min(width / 7, 180), 80);
-      offscreenCtx.font = `900 ${fontSize}px Inter, sans-serif`;
-      // Adding letter spacing hack for canvas
-      offscreenCtx.letterSpacing = "8px";
+      let fontSize = Math.max(Math.min(width / 6, 85), 50);
+      const lineHeight = fontSize * 0.95;
+      const startY = 20;
+
+      // Line 1 & 2 (Ink-like structure)
+      offscreenCtx.fillStyle = "white"; 
+      offscreenCtx.font = `900 ${fontSize}px "Playfair Display", serif`;
+      offscreenCtx.letterSpacing = "-2px";
+      offscreenCtx.fillText("Own your", 0, startY);
+      offscreenCtx.fillText("data.", 0, startY + lineHeight);
       
-      const word = DEFAULT_WORDS[currentWordIndexRef.current];
-      
-      // Auto-scale down if text is too wide for the screen
-      let textWidth = offscreenCtx.measureText(word).width;
-      if (textWidth > width * 0.9) {
-          fontSize = fontSize * ((width * 0.9) / textWidth);
-          offscreenCtx.font = `900 ${fontSize}px Inter, sans-serif`;
-      }
-      
-      offscreenCtx.fillText(word, width / 2, height / 2 + 20);
+      // Line 3 (Always in italic)
+      offscreenCtx.font = `italic 500 ${fontSize}px "Playfair Display", serif`;
+      // We will render "Always." slightly differently in particles
+      offscreenCtx.fillText("Always.", 0, startY + lineHeight * 2);
 
       const textCoordinates = offscreenCtx.getImageData(0, 0, width, height);
       const newParticles = [];
 
-      // Decrease pixelSteps to generate MORE particles (makes text much denser and brighter)
-      const pixelSteps = 5; 
-      let particleIndex = 0;
+      const pixelSteps = 4; // Dense particles
+      
+      // Copper palette
+      const copperColors = [
+        { r: 160, g: 98, b: 42 },   // copper-500
+        { r: 196, g: 137, b: 90 },  // copper-400
+        { r: 212, g: 169, b: 122 }, // copper-300
+        { r: 26, g: 22, b: 18 }     // ink-900 (for contrast)
+      ];
 
       for (let y = 0; y < textCoordinates.height; y += pixelSteps) {
         for (let x = 0; x < textCoordinates.width; x += pixelSteps) {
           const index = (y * 4 * textCoordinates.width) + (x * 4) + 3;
           if (textCoordinates.data[index] > 128) {
-            // STEP 3 — REMOVE RANDOM COLORS
-            const colors = [
-              { r: 0, g: 212, b: 255 },
-              { r: 59, g: 130, b: 246 },
-            ];
-            const newColor = colors[Math.floor(Math.random() * colors.length)];
             
-            // Reuse existing particles for smooth transitions
-            if (particleIndex < particles.length) {
-                particles[particleIndex].targetX = x;
-                particles[particleIndex].targetY = y;
-                particles[particleIndex].color = newColor;
-                newParticles.push(particles[particleIndex]);
+            // If it's the 3rd line (Always.), make it mostly copper
+            let newColor;
+            if (y > startY + lineHeight * 1.8) {
+                newColor = copperColors[Math.floor(Math.random() * 3)]; // pure copper
             } else {
-                newParticles.push(new Particle(x, y, newColor));
+                // Mix of ink and copper for top text
+                newColor = Math.random() > 0.8 ? copperColors[Math.floor(Math.random() * 3)] : copperColors[3];
             }
-            particleIndex++;
+            
+            newParticles.push(new Particle(x, y, newColor));
           }
         }
       }
@@ -190,7 +171,6 @@ export function ParticleTextEffect({
     };
 
     const animate = () => {
-      // 100% transparent background, clear frame
       ctx.clearRect(0, 0, width, height);
       
       for (let i = 0; i < particles.length; i++) {
@@ -198,21 +178,17 @@ export function ParticleTextEffect({
         particles[i].update(mouse);
       }
       
-      frameCountRef.current++;
-      // Change words gracefully every few seconds (much faster now)
-      if (frameCountRef.current % 90 === 0) {
-          currentWordIndexRef.current = (currentWordIndexRef.current + 1) % DEFAULT_WORDS.length;
-          changeWord();
-      }
-      
       animationFrameId = requestAnimationFrame(animate);
     };
 
     if (document.fonts && document.fonts.ready) {
-      document.fonts.ready.then(init);
+      document.fonts.ready.then(() => {
+        setTimeout(init, 200); // give font time to render
+      });
     } else {
-      setTimeout(init, 100);
+      setTimeout(init, 500);
     }
+    
     animate();
 
     const handleResize = () => {
@@ -229,11 +205,15 @@ export function ParticleTextEffect({
   }, []);
 
   return (
-    <div ref={containerRef} className={`relative w-full h-[380px] flex items-center justify-center ${className}`}>
+    <div ref={containerRef} className={`relative w-full h-[300px] flex items-start justify-start ${className}`}>
       <canvas 
         ref={canvasRef} 
         className="block absolute top-0 left-0 w-full h-full z-10 pointer-events-auto"
       />
+      {/* Visually hidden h1 for SEO and screen readers */}
+      <h1 className="sr-only">
+        Own your data. Always.
+      </h1>
     </div>
   );
 }
