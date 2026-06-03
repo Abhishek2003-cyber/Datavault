@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { FAQSection } from "../src/components/home/FAQSection";
 
 export default function Home() {
   return (
@@ -9,7 +10,7 @@ export default function Home() {
       
       {/* Cinematic Content Layer */}
       <motion.div 
-        className="relative z-10 mx-auto flex flex-col lg:flex-row items-stretch w-full max-w-[1200px]"
+        className="relative z-10 mx-auto flex flex-col lg:flex-row items-stretch w-full max-w-[1200px] mb-20"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
@@ -109,6 +110,10 @@ export default function Home() {
           </div>
         </div>
       </motion.div>
+
+      {/* FAQ Section */}
+      <FAQSection />
+
     </div>
   );
 }
