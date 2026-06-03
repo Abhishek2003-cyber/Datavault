@@ -145,17 +145,7 @@ export default function LogoAnimated() {
             vault
           </span>
         </div>
-        <div
-          style={{
-            fontFamily: "'DM Mono', monospace",
-            fontSize: "9px",
-            letterSpacing: "0.22em",
-            textTransform: "uppercase",
-            color: "#5a5248",
-          }}
-        >
-          Zero-knowledge data exchange
-        </div>
+
       </div>
     </div>
   );
