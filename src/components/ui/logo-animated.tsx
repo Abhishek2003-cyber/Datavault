@@ -101,7 +101,6 @@ export default function LogoAnimated() {
         <circle cx="29" cy="57" r="2" fill="#7a4a1a" stroke="#f0c880" strokeWidth="0.75" />
         <circle cx="51" cy="57" r="2" fill="#7a4a1a" stroke="#f0c880" strokeWidth="0.75" />
         {/* Ground shadow */}
-        <ellipse cx="43" cy="75" rx="30" ry="4" fill="#000000" opacity="0.35" />
         {/* Node dots */}
         <circle cx="22" cy="11" r="3.5" fill="url(#dv-nG)" opacity="0.9" />
         <circle cx="40" cy="6" r="4.5" fill="url(#dv-nG)" />
@@ -128,8 +127,7 @@ export default function LogoAnimated() {
         >
           <span
             style={{
-              color: "#f0ece3",
-              textShadow: "2px 2px 0px #5a3a18, 4px 4px 0px #3d2610, 6px 6px 0px #1a0f05",
+              color: "#1c1a17",
             }}
           >
             Data
@@ -138,8 +136,7 @@ export default function LogoAnimated() {
             style={{
               fontStyle: "italic",
               fontWeight: 400,
-              color: "#d4895a",
-              textShadow: "2px 2px 0px #7a3d0a, 4px 4px 0px #4a2206, 6px 6px 0px #1a0a02",
+              color: "#b57642",
             }}
           >
             vault
