@@ -2,12 +2,19 @@
 
 import React, { useEffect, useRef, useState } from "react";
 
+const DEFAULT_WORDS = [
+  "DATAVAULT",
+  "CDR SECURED",
+  "STORY PROTOCOL",
+];
+
 export function ParticleTextEffect({
   className = ""
 }: { className?: string }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const frameCountRef = useRef(0);
+  const currentWordIndexRef = useRef(0);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -18,6 +25,7 @@ export function ParticleTextEffect({
     let animationFrameId: number;
     let particles: Particle[] = [];
     
+    // Width defaults to the container width in the new split layout
     let width = containerRef.current?.clientWidth || window.innerWidth / 2;
     let height = 300;
 
@@ -49,6 +57,7 @@ export function ParticleTextEffect({
 
       draw() {
         if (!ctx) return;
+        
         ctx.shadowBlur = 8;
         ctx.shadowColor = `rgb(${this.color.r}, ${this.color.g}, ${this.color.b})`;
         ctx.fillStyle = `rgb(${this.color.r}, ${this.color.g}, ${this.color.b})`;
@@ -105,10 +114,10 @@ export function ParticleTextEffect({
       canvas.width = width;
       canvas.height = height;
 
-      drawText();
+      changeWord();
     };
 
-    const drawText = () => {
+    const changeWord = () => {
       ctx.clearRect(0, 0, width, height);
       
       const offscreenCanvas = document.createElement('canvas');
@@ -117,36 +126,37 @@ export function ParticleTextEffect({
       const offscreenCtx = offscreenCanvas.getContext('2d', { willReadFrequently: true });
       if (!offscreenCtx) return;
 
-      offscreenCtx.textBaseline = "top";
+      offscreenCtx.fillStyle = "white";
+      offscreenCtx.textBaseline = "middle";
       offscreenCtx.textAlign = "left";
       
-      let fontSize = Math.max(Math.min(width / 6, 85), 50);
-      const lineHeight = fontSize * 0.95;
-      const startY = 20;
-
-      // Line 1 & 2 (Ink-like structure)
-      offscreenCtx.fillStyle = "white"; 
-      offscreenCtx.font = `900 ${fontSize}px "Playfair Display", serif`;
-      offscreenCtx.letterSpacing = "-2px";
-      offscreenCtx.fillText("Own your", 0, startY);
-      offscreenCtx.fillText("data.", 0, startY + lineHeight);
+      let fontSize = Math.max(Math.min(width / 7, 100), 40);
+      offscreenCtx.font = `900 ${fontSize}px Inter, sans-serif`;
+      offscreenCtx.letterSpacing = "2px";
       
-      // Line 3 (Always in italic)
-      offscreenCtx.font = `italic 500 ${fontSize}px "Playfair Display", serif`;
-      // We will render "Always." slightly differently in particles
-      offscreenCtx.fillText("Always.", 0, startY + lineHeight * 2);
+      const word = DEFAULT_WORDS[currentWordIndexRef.current];
+      
+      // Auto-scale down if text is too wide for the screen
+      let textWidth = offscreenCtx.measureText(word).width;
+      if (textWidth > width * 0.9) {
+          fontSize = fontSize * ((width * 0.9) / textWidth);
+          offscreenCtx.font = `900 ${fontSize}px Inter, sans-serif`;
+      }
+      
+      offscreenCtx.fillText(word, 0, height / 2);
 
       const textCoordinates = offscreenCtx.getImageData(0, 0, width, height);
       const newParticles = [];
 
-      const pixelSteps = 4; // Dense particles
-      
-      // Copper palette
+      const pixelSteps = 4; 
+      let particleIndex = 0;
+
+      // Copper palette from the new theme
       const copperColors = [
         { r: 160, g: 98, b: 42 },   // copper-500
         { r: 196, g: 137, b: 90 },  // copper-400
         { r: 212, g: 169, b: 122 }, // copper-300
-        { r: 26, g: 22, b: 18 }     // ink-900 (for contrast)
+        { r: 138, g: 82, b: 31 }    // copper-600
       ];
 
       for (let y = 0; y < textCoordinates.height; y += pixelSteps) {
@@ -154,16 +164,17 @@ export function ParticleTextEffect({
           const index = (y * 4 * textCoordinates.width) + (x * 4) + 3;
           if (textCoordinates.data[index] > 128) {
             
-            // If it's the 3rd line (Always.), make it mostly copper
-            let newColor;
-            if (y > startY + lineHeight * 1.8) {
-                newColor = copperColors[Math.floor(Math.random() * 3)]; // pure copper
-            } else {
-                // Mix of ink and copper for top text
-                newColor = Math.random() > 0.8 ? copperColors[Math.floor(Math.random() * 3)] : copperColors[3];
-            }
+            const newColor = copperColors[Math.floor(Math.random() * copperColors.length)];
             
-            newParticles.push(new Particle(x, y, newColor));
+            if (particleIndex < particles.length) {
+                particles[particleIndex].targetX = x;
+                particles[particleIndex].targetY = y;
+                particles[particleIndex].color = newColor;
+                newParticles.push(particles[particleIndex]);
+            } else {
+                newParticles.push(new Particle(x, y, newColor));
+            }
+            particleIndex++;
           }
         }
       }
@@ -178,15 +189,22 @@ export function ParticleTextEffect({
         particles[i].update(mouse);
       }
       
+      frameCountRef.current++;
+      // Change words gracefully every few seconds
+      if (frameCountRef.current % 120 === 0) {
+          currentWordIndexRef.current = (currentWordIndexRef.current + 1) % DEFAULT_WORDS.length;
+          changeWord();
+      }
+      
       animationFrameId = requestAnimationFrame(animate);
     };
 
     if (document.fonts && document.fonts.ready) {
       document.fonts.ready.then(() => {
-        setTimeout(init, 200); // give font time to render
+        setTimeout(init, 100); 
       });
     } else {
-      setTimeout(init, 500);
+      setTimeout(init, 200);
     }
     
     animate();
@@ -210,9 +228,9 @@ export function ParticleTextEffect({
         ref={canvasRef} 
         className="block absolute top-0 left-0 w-full h-full z-10 pointer-events-auto"
       />
-      {/* Visually hidden h1 for SEO and screen readers */}
+      {/* Visually hidden text for SEO */}
       <h1 className="sr-only">
-        Own your data. Always.
+        DATAVAULT. CDR SECURED. STORY PROTOCOL.
       </h1>
     </div>
   );
