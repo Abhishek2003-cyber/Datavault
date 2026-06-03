@@ -48,7 +48,8 @@ export function ParticleTextEffect({
         this.targetY = y;
         this.color = color;
         
-        this.particleSize = Math.random() * 1.5 + 1.0; 
+        // Slightly larger particles for better visibility on light background
+        this.particleSize = Math.random() * 2.5 + 1.5; 
         
         this.easeSpeed = Math.random() * 0.15 + 0.08; 
         this.floatOffset = Math.random() * Math.PI * 2; 
@@ -58,11 +59,10 @@ export function ParticleTextEffect({
       draw() {
         if (!ctx) return;
         
-        ctx.shadowBlur = 8;
-        ctx.shadowColor = `rgb(${this.color.r}, ${this.color.g}, ${this.color.b})`;
+        // Removed shadowBlur because shadows look muddy on light ivory backgrounds.
+        // Solid pixels provide much crisper contrast.
         ctx.fillStyle = `rgb(${this.color.r}, ${this.color.g}, ${this.color.b})`;
         ctx.fillRect(this.x, this.y, this.particleSize, this.particleSize);
-        ctx.shadowBlur = 0; 
       }
 
       update(mouse: { x: number, y: number, radius: number }) {
@@ -148,15 +148,17 @@ export function ParticleTextEffect({
       const textCoordinates = offscreenCtx.getImageData(0, 0, width, height);
       const newParticles = [];
 
-      const pixelSteps = 4; 
+      // Increased particle density (pixelSteps from 4 to 3) to make text bolder and more solid
+      const pixelSteps = 3; 
       let particleIndex = 0;
 
-      // Copper palette from the new theme
-      const copperColors = [
-        { r: 160, g: 98, b: 42 },   // copper-500
-        { r: 196, g: 137, b: 90 },  // copper-400
-        { r: 212, g: 169, b: 122 }, // copper-300
-        { r: 138, g: 82, b: 31 }    // copper-600
+      // New Contrast Palette: Mix of dark ink for structure, and copper for highlights.
+      // This ensures it stands out clearly against the light ivory background.
+      const themeColors = [
+        { r: 26, g: 22, b: 18 },    // ink-900 (blackish brown, very dark)
+        { r: 61, g: 53, b: 48 },    // ink-700 (dark brown)
+        { r: 160, g: 98, b: 42 },   // copper-500 (primary accent)
+        { r: 138, g: 82, b: 31 }    // copper-600 (darker copper)
       ];
 
       for (let y = 0; y < textCoordinates.height; y += pixelSteps) {
@@ -164,7 +166,14 @@ export function ParticleTextEffect({
           const index = (y * 4 * textCoordinates.width) + (x * 4) + 3;
           if (textCoordinates.data[index] > 128) {
             
-            const newColor = copperColors[Math.floor(Math.random() * copperColors.length)];
+            // Bias towards darker colors to ensure readability on ivory background
+            // 50% chance of being ink-900, 50% chance of being another color
+            let newColor;
+            if (Math.random() > 0.5) {
+                newColor = themeColors[0]; // ink-900
+            } else {
+                newColor = themeColors[Math.floor(Math.random() * themeColors.length)];
+            }
             
             if (particleIndex < particles.length) {
                 particles[particleIndex].targetX = x;
