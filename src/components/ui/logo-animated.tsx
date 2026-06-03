@@ -27,6 +27,8 @@ export default function LogoAnimated() {
         gap: "14px",
         willChange: "opacity, transform",
         cursor: "pointer",
+        opacity: 0,
+        transform: "translateY(12px)",
       }}
     >
       {/* ── 3D VAULT ICON ── */}
