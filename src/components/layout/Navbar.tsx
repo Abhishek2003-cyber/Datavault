@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useCDR } from "../providers/CDRProvider";
 import { useEffect, useState } from "react";
+import LogoAnimated from "../ui/logo-animated";
 
 const NAV_LINKS = [
   { name: "Dataset Marketplace", href: "/marketplace" },
@@ -37,8 +38,7 @@ export function Navbar() {
         
         {/* LOGO */}
         <Link href="/" className="flex items-center group">
-          <span className="text-2xl font-[Jost] font-bold text-ink-900 tracking-tight">Data</span>
-          <span className="text-2xl text-copper-500 font-[Playfair_Display] italic tracking-tight pr-1">vault</span>
+          <LogoAnimated />
         </Link>
 
         {/* NAV LINKS */}
